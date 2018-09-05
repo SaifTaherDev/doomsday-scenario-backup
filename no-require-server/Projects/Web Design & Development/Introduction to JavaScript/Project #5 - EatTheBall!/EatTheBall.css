@@ -1,0 +1,66 @@
+﻿body {
+    overflow: hidden;
+    background: rgba(82, 80, 78, 0.75);
+    font-family: Verdana;
+    font-size: 2.5em;
+}
+
+#gameCanvas {
+    border: 0.25em solid black;
+    background-color: rgba(255,235,205,0.5);
+    margin-top: 1.25vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+#flexContainer {
+    margin-top: 0.5em;
+    display: flex;
+    justify-content: space-around;
+}
+
+#flexContainer span{
+    background: rgba(255, 180, 0, 0.50);
+    transition-duration: 0.5s;
+    padding: 0.1em;
+    border-radius:0.25em;
+}
+
+#flexContainer span:hover {
+    background: rgba(255, 180, 0, 0.8);
+    transition-duration: 0.5s;
+    border-radius: 1em;
+    cursor:pointer;
+}
+#timerDiv {
+    position: fixed;
+    top: 12.5vh;
+    left: 42.25vw;
+    z-index: 1;
+    font-size: 2em;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+#livesCounter {
+    position: fixed;
+    top: 12vh;
+    left: 65vw;
+    z-index: 1;
+    font-size: 2em;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}

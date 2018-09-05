@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>TheMostAdvancedFormEverOMG</title></head>
+<body>
+<form name="form">
+G-mail:&nbsp;<input type="text" id="G-mail" name="field" onBlur="GmailValidation()"><span id="span1"></span>
+</form>
+</body>
+<script>
+function GmailValidation()
+{
+var FisrtPart=("");
+if (form.field.value.icludes("@gmail.com")){
+document.getElementById("span1").innerHTML="Please enter you G-mail";
+document.getElementById("G-mail").style.borderColor="red";
+return false;
+}
+if (form.field.value.icludes("@gmail.com"))
+{
+document.getElementById("span1").innerHTML="You have typed the right G-mail";
+document.getElementById("G-mail").style.borderColor="green";
+}
+}
+</script>
+</html>
+

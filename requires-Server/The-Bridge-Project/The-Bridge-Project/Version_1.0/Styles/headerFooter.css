@@ -1,0 +1,66 @@
+﻿nav {
+    background: hsl(100, 0%, 20%);
+    transition-duration: 0.5s;
+}
+
+    nav img {
+        width: 6em;
+    }
+
+    nav img, nav span {
+        cursor: pointer;
+    }
+
+.navButtons {
+    height: 100%;
+    border: 5px solid transparent;
+}
+
+    .navButtons:hover {
+        border-top-color: #954FA5;
+    }
+
+.navButtons, #signIn {
+    display: inline-block;
+    padding: 1em;
+    margin: 0.25em;
+    margin-top: 0;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+#signIn {
+    border-radius: 5em;
+    background: white;
+    text-align: center;
+    width: 7em;
+    height: 1em;
+    line-height: 0;
+    color: #954FA5;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    background: hsl(100, 0%, 20%);
+    color: white;
+}
+
+#linksContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+    #linksContainer > div {
+        width: 33.3333333%;
+    }
+
+#logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #logoContainer img {
+        width: 50%;
+    }

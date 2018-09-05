@@ -1,0 +1,104 @@
+﻿body{
+    background-color:lightgray;
+}
+#TheWholeContainer {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    height: 100em;
+    width: 70em;
+    margin-left:15em;
+    margin-right:15em;
+}
+#TopBar {
+    width: 70em;
+    height: 3em;
+    margin-left: -0.05em;
+    margin-right: 0em;
+    background: linear-gradient(180deg, white, 70%, lightgray);
+    border-bottom:1px solid black;
+}
+#TopBar div{
+    border-right:1px solid black;
+    border-left:1px solid black;
+    font-family:Helvetica;
+    font-weight:bold;
+    width:7em;
+    height:3em;
+    float:left;
+    text-align:center;
+    line-height:3em;
+}
+#SearchBar{
+    border-radius: 15px;
+    margin-top:1em;
+    margin-left:5em;
+    width:60%;
+}
+#SearchBarSection{
+    float:left;
+    width:20em;
+    margin-left:-4em;
+}
+#SearchLogo{
+    width:1.54em;
+    height: auto;
+    margin:auto;
+}
+#Search{
+    float:right;
+    margin-top:0.65em;
+    border-radius:20px;
+    border-color:transparent;
+    background:lightgray;
+    margin-right:1em;
+}
+#PageTitle{
+    font-weight:bold;
+    font-family:'Century Gothic';
+    text-align:center;
+}
+#PageSubTitle{
+    font-size:1em;
+    font-family:'Verdana';
+    text-align:center;  
+}
+.VericalLines{
+    background-color:black;
+    width:100%;
+    height:1px;
+    float:left;
+}
+#TableOfContent{
+    list-style-position:inside;
+}
+#TableSection{
+    font-family:'Verdana';
+    margin-left:0.75em;
+    font-size:1.5em;
+    float:left;
+}
+
+#TableSection > h4 {
+    font-family: 'Verdana';
+    margin-left: 5px;
+    margin-left:2.5em;
+    text-decoration:underline;
+    float:left;
+}
+#PageSubSubTitle {
+    font-style: italic;
+    font-family: 'Helveticia';
+    font-size:1.1em;
+    text-align:center;
+}
+#ZeeplenImage{
+    float:right;
+    height:5em;
+    width:5em;
+    margin-right:5em;
+    margin-top:3em;
+}
+#ZeeplenBOOM{
+    height:10em;
+    width:auto;
+}

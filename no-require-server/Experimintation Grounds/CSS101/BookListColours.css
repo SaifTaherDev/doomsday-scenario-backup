@@ -1,0 +1,17 @@
+﻿.ListItem {
+    font-family: 'Helvetica';
+}
+
+#AmazingHeading {
+    font-family: 'Franklin Gothic Medium';
+    color: #800000;
+}
+#AmazingList1{
+    list-style-type:upper-alpha;
+}
+#AmazingList2 {
+    list-style-type: square;
+}
+#AmazingList3 {
+    list-style-image: url("images/my_triangle.png");
+}

@@ -1,0 +1,84 @@
+﻿<html>
+<body>
+                                                                      <!--OPERATIONS-->
+
+    
+    CREATE DATABASE "name of database"<!--to create a new database-->
+    
+    USE "name of database"<!--to select a database-->       
+    
+    CREATE TABLE "name of table"("names of columns")<!--To create a new table and also add the wanted columns to it-->
+    
+    DESCRIBE "name of a table"<!--to show all metadata of a table-->
+    
+    <!--Important--> INSERT INTO "name of table" ("names of columns as perameters") VALUES ("its value")<!--for inserting a new row into a table-->
+    
+    DELETE FROM "name of table" WHERE "any attribute(identification)" = "its value"<!--To Delete a Row in  table-->
+    
+    UPDATE "name of table" SET "any attribute" = "any value" WHERE "any attribute(identification)" = "its value"<!--to change a row in a table-->
+
+    SELECT * FROM "name of table"<!--to display a table(practically)-->
+
+    SELECT * FROM "name of table" WHERE "any attribute(identification)" = "its value"<!--to display a certain row in a table-->
+
+    SELECT * FROM "name of table" ORDER BY "attribute" <!--Used to display rows (ascending/descending) alphabetically or numerically-->
+
+    SELECT * FROM "name of table" LIKE '%"any letter"%' <!--Displays the rows where their values of the specified attribute contains a certain letter/number/word-->
+
+    SELECT * FROM "name of table" LIMIT "number of starting row" "number of rows to only show" <!--To display only a certain number of rows after a specified row-->
+
+    <!--Important--> SELECT COUNT(*) FROM "name of table" WHERE "attribute(identification)" <!--displays a number of rows where a certain attribute is equal to a specifie value__ useful for counting how many task were done and how many werenot in the a activity log project-->
+
+
+                                                                      <!--DATA TYPES-->
+
+
+    CHAR <!--specifies the most likely length of strings (very good for short strings, where the length of the string is going to be X PRETTY MUCH all the time)-->
+    VARCHAR <!--specifies a range where the length of all strings will in that range-->
+
+    <!--Text Fields-->
+
+    TINYTEXT <!-- -255 chars-->
+    TEXT <!-- -65K chars-->
+    MEDIUMTEXT <!-- -16M chars-->
+    LONGTEXT <!-- -4G of text-->
+
+    <!--BLOB's (Binary Large Objects)-->
+
+    TINYBLOB - 255
+    BLOB - 65K
+    MEDIUMLOB - 16M
+    LONGBLOB - 4G
+
+    <!--Integer Numbers-->
+
+    TINYINT (-128, 128)
+    SMALLINT (-32768, 32768)
+    INT (2B)
+    BIGINT (10*18-ish)
+
+    <!--Floating Point Numbers-->
+
+    FLOAT <!--(32-bit) 10*38 with 7 digits of accuracy-->
+    DOUBLE <!--(64-bit) 10*308 with 14 digits of accuracy-->
+
+    <!--Dates-->
+
+    TIMESTAMP - 'YYYY-MM-DD HH:MM:SS' <!--Number of seconds since 1970-2037-->
+    DATETIME - 'YYYY-MM-DD HH:MM:SS'
+    DATE - 'YYYY-MM-DD'
+    TIME - 'HH-MM-SS'
+    <!--Important--> Built-in MySQL function : NOW() <!--Display current date + time-->
+    <!--Important--> Built-in MySQL function : CURDATE() <!--Display current date only-->
+
+    <!--Keys-->
+
+    <!--https://www.coursera.org/learn/intro-sql/lecture/C5saN/normalization-and-foreign-keys-->
+    <!--https://www.coursera.org/learn/intro-sql/lecture/wCZQN/building-a-physical-data-schema-->
+
+    <!--Relational Database Managment-->
+
+    <!--Join-->SELECT "tableName.ColumnName","tableName.ColumnName" FROM "name of table" JOIN "name of table" ON "name of table".FK = "name of table".FK<!--Joining two table together when the foregin key is equal to true-->
+
+</body> 
+</html>

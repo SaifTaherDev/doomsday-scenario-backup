@@ -1,0 +1,121 @@
+﻿body {
+}
+
+#PlayerContainer {
+    margin-left:17.5vw;
+    margin-top:10vh;
+    width:65vw;
+    height:40vw;
+    background:grey;
+    position:relative;
+}
+#controls{
+    position:absolute;
+    top:90%;
+    width:99.8%;
+    height:10%;
+    background-color:dimgray;
+}
+#VidZone {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    background: black;
+}
+#vid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+#play {
+    position: absolute;
+    background-image: url('images/PlayButton.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    width: 7.5%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+#VolumeDown {
+    position: absolute;
+    left: 7.5%;
+    background-image: url('https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/256x256/media-volume-2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 7.5%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+#VolumeUp {
+    position: absolute;
+    left: 15%;
+    background-image: url('https://d30y9cdsu7xlg0.cloudfront.net/png/1034860-200.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 7.5%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+#mute {
+    position: absolute;
+    left: 22.5%;
+    background-image: url('https://media.forgecdn.net/avatars/52/147/636111705415977553.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 7.5%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+#FastForward {
+    position: absolute;
+    left: 37.5%;
+    background-image: url('https://d30y9cdsu7xlg0.cloudfront.net/png/1084107-200.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 7.5%;
+    height: 100%;
+    border-left: 1px solid black;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#FastBackward {
+    position: absolute;
+    left: 30%;
+    background-image: url('https://d30y9cdsu7xlg0.cloudfront.net/png/1084107-200.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 7.5%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+#SpeedMagnitude {
+    position: absolute;
+    left: 45%;
+    width: 18.5%;
+    height: 100%;
+    border-right: 1px solid black;  
+}
+#SpeedList{
+    margin-left:0.05em;
+    margin-top:0.67em;
+    font-size:1.5em;
+}
+#vidTitle {
+    position: absolute;
+    left: 63.5%;
+    width: 36.5%;
+    height: 100%;
+    font-size: 3em;
+    font-family: Calibri;
+    text-align:center;
+
+}
+

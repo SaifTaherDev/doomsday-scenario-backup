@@ -1,0 +1,623 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" rel="stylesheet" href="EatTheBall.css" />
+    <meta charset="utf-8" />
+    <title>EatTheBall!</title>
+</head>
+<div></div>
+<body>
+    <div id="flexContainer">
+        <span id="one" onclick="changeNumBalls();">Level 1</span>
+        <span id="two" onclick="changeNumBalls();">Level 2</span>
+        <span id="three" onclick="changeNumBalls();">Level 3</span>
+        <span id="four" onclick="changeNumBalls();">Level 4</span>
+        <span id="five" onclick="changeNumBalls();">Level 5</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="timerDiv"></div>
+    <div id="livesCounter"></div>
+    <!--Start of JavaScript code-->
+    <script src="howler.js"></script>
+    <script>
+        var buzzSound = new Howl({ src: ['BUZZER3.mp3'], volume: 0.5 });
+        var backgroundMusic = new Howl({ src: ["https://mainline.i3s.unice.fr/mooc/SkywardBound/assets/sounds/humbug.mp3"], loop: true, volume: 1 });
+        var winMusic = new Howl({ src: ["winMusic.mp3"], loop: false, volume: 0.1 })
+
+        var XPos = 0;
+        var YPos = 0;
+
+        var n = 30;
+        var arrayLength = 10    ;
+
+        var gameCanvas = document.body.querySelector("#gameCanvas");
+        var ctx = gameCanvas.getContext("2d");
+
+        var colorArray = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+        var balls = [];
+
+        var timer = document.body.querySelector("#timerDiv");
+        var timerNum = 30;
+        var neatZero = "";
+        var timerERRThingy = 1;
+        var winTimer = 32000;
+
+        var numLives = 0;
+        var lives = [{
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },
+        {
+            backgroundImage: "url('lifeIcon.png')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            content: "&nbsp;&nbsp;"
+        },]
+
+        window.onload = livesManager();
+
+        window.onload = function initial() {
+            gameCanvas.height = 0.9 * window.innerHeight;
+            gameCanvas.width = 0.995 * window.innerWidth;
+
+            window.addEventListener("resize", function (evt) {
+                gameCanvas.height = 0.9 * window.innerHeight;
+                gameCanvas.width = 0.995 * window.innerWidth;
+                gameCanvas.style.marginTop = (1.25 * window * innerHeight) + "vh";
+            })
+            movePlayer();
+            MainLoop();
+            addBalls();
+            timer.innerHTML = "00:" + neatZero + timerNum;
+            setInterval(function () {
+                timerNum = timerNum - timerERRThingy;
+                timer.innerHTML = "00:" + timerNum;
+            }, 1000)
+
+            backgroundMusic.play();
+        }
+
+        function MainLoop() {
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+            drawBalls(balls);
+            animateBalls(balls);
+            loserFunction();
+
+            if (timerNum <= 9) {
+                neatZero = 0;
+                timer.innerHTML = "00:" + neatZero + timerNum;
+            }
+            if (timerNum <= -1) {
+
+                timer.innerHTML = "";
+                balls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                ctx.font = "4em Georgia";
+                var lostText = ctx.fillText("You Win!", gameCanvas.width / 2 - 325, gameCanvas.height / 2);
+                ctx.fillStyle = "black";
+                backgroundMusic.pause();
+            }
+            requestAnimationFrame(MainLoop);
+        }
+
+        function addBalls() {
+            while (n < 50) {
+                n++;
+                var b = {
+                    x: window.innerWidth / 2,
+                    y: window.innerHeight / 2,
+                    radius: Math.random() * 30 + 15,
+                    speedX: -7.5 + Math.random() * 15,
+                    speedY: -7.5 + Math.random() * 15,
+                    color: colorArray[Math.round(Math.random() * 6)]
+                }
+                balls.push(b);
+            }
+        }
+        function drawBalls(ballArray) {
+            ballArray.forEach(function (b) {
+                drawOneBall(b);
+            });
+            drawPlayer();
+        }
+        function animateBalls(ballArray) {
+            ballArray.forEach(function (b) {
+                b.x += b.speedX;
+                b.y += b.speedY;
+                testCollisionBallWithWalls(b);
+            });
+        }
+        function drawOneBall(b) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+            ctx.fillStyle = b.color;
+            ctx.fill();
+            ctx.restore();
+        }
+        function testCollisionBallWithWalls(b) {
+            if ((b.x + b.radius > gameCanvas.width) || (b.x - b.radius < 0)) {
+                b.speedX = -b.speedX;
+            };
+
+            if ((b.y + b.radius > gameCanvas.height) || (b.y - b.radius < 0)) {
+                b.speedY = -b.speedY;
+            };
+
+            if (XPos > b.x - b.radius && XPos < b.x + b.radius && YPos > b.y -
+                b.radius && YPos < b.y + b.radius) {
+                balls.splice(balls.indexOf(b), 1);
+                buzzSound.play();
+                document.getElementById("livesCounter").innerHTML = '';
+                lives.splice(0, 1);
+                livesManager();
+            }
+        }
+        function changeNumBalls() {
+            balls = [];
+            livesManager();
+
+            switch (event.currentTarget.id) {
+                case "one":
+                    winTimer = 32000;
+                    timerNum = 30;
+                    n = 30;
+                    arrayLength = 10;
+                    addBalls();
+                    drawBalls(balls);
+                    animateBalls(balls);
+                    backgroundMusic.pause();
+                    backgroundMusic.play();
+                    winMusic.pause();
+                    setInterval(function () { if (timerNum < 0) { winMusic.play() } }, winTimer);
+                    lives = [{
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },];
+                    livesManager()
+                    break;
+                case "two":
+                    winTimer = 37000
+                    timerNum = 35;
+                    n = 25;
+                    arrayLength = 15;
+                    addBalls();
+                    drawBalls(balls);
+                    animateBalls(balls);
+                    backgroundMusic.pause();
+                    backgroundMusic.play();
+                    winMusic.pause();
+                    setInterval(function () { if (timerNum < 0) { winMusic.play() } }, winTimer);
+                    lives = [{
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },];
+                    livesManager()
+                    break;
+                case "three":
+                    winTimer = 42000;
+                    timerNum = 40;
+                    n = 20;
+                    arrayLength = 20;
+                    addBalls();
+                    drawBalls(balls);
+                    animateBalls(balls);
+                    backgroundMusic.pause();
+                    backgroundMusic.play();
+                    winMusic.pause();
+                    setInterval(function () { if (timerNum < 0) { winMusic.play() } }, winTimer);
+                    lives = [{
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },];
+                    livesManager()
+                    break;
+                case "four":
+                    winTimer = 47000;
+                    timerNum = 45;
+                    n = 15;
+                    arrayLength = 25;
+                    addBalls();
+                    drawBalls(balls);
+                    animateBalls(balls);
+                    backgroundMusic.pause();
+                    backgroundMusic.play();
+                    winMusic.pause();
+                    setInterval(function () { if (timerNum < 0) { winMusic.play() } }, winTimer);
+                    lives = [{
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },];
+                    livesManager()
+                    break;
+                case "five":
+                    winTimer = 52000
+                    timerNum = 50;
+                    n = 10;
+                    arrayLength = 30
+                    addBalls();
+                    drawBalls(balls);
+                    animateBalls(balls);
+                    backgroundMusic.pause();
+                    backgroundMusic.play();
+                    winMusic.pause();
+                    setInterval(function () { if (timerNum < 0) { winMusic.play() } }, winTimer);
+                    lives = [{
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },
+                    {
+                        backgroundImage: "url('lifeIcon.png')",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        content: "&nbsp;&nbsp;"
+                    },];
+                    livesManager()
+                    break;
+            }
+        }
+        function drawPlayer() {
+            ctx.save();
+            ctx.fillStyle = "red";
+            ctx.fillRect(XPos, YPos, 30, 30);
+            ctx.restore();
+        }
+        function movePlayer() {
+            gameCanvas.addEventListener("mousemove", function (evt) {
+                XPos = evt.clientX - 15;
+                YPos = evt.clientY - 100;
+            })
+        }
+        function loserFunction() {
+            if (balls.length <= arrayLength) {
+                removeTimer();
+                balls = [];
+                ctx.font = "4em Georgia";
+                var lostText = ctx.fillText("You Lost!", gameCanvas.width / 2 - 325, gameCanvas.height / 2);
+                ctx.fillStyle = "black";
+            }
+        }
+        function removeTimer() {
+            if (balls.length <= arrayLength) {
+                timer.innerHTML = "";
+            }
+        }
+        function livesManager() {
+            lives.forEach(function (currentLife) {
+                var newLife = document.createElement("span");
+                var livesContainer = document.getElementById("livesCounter");
+                livesContainer.appendChild(newLife);
+                newLife.style.backgroundImage = currentLife.backgroundImage;
+                newLife.style.backgroundSize = currentLife.backgroundSize;
+                newLife.style.backgroundRepeat = currentLife.backgroundRepeat;
+                newLife.innerHTML = currentLife.content;
+            })
+        }
+    </script>
+</body>
+</html>

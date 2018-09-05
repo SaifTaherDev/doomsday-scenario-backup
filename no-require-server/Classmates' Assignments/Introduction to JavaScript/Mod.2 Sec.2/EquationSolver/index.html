@@ -1,0 +1,40 @@
+<!-- If not allergic to High School math: try to write a piece of code that solves second degree equations. You pass the a, b, c parameters of: ax2 + bx + c, and the solve function will compute delta = b2 - 4a*c. Test the sign of delta, and if it's equal to zero, then display (in the console, or better, in the page) the roots of the equation. -->
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+  <title>Second degree equation solver</title>
+  <meta charset="utf-8"/>
+  <script src="js/script.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<h1>Second degree equation solver</h1> 
+  <li>
+  How many decimals do you want?
+  </li>
+  <li>
+   <input type="text" name="dec" id="dec" value="3" /> 	
+  </li>
+  <section id="cssSettings">
+	<li>
+		value of a: <input type="text" name="a" id="a" />
+	</li>
+	<li>
+		value of b: <input type="text" name="b" id="b" />
+	</li>
+	<li>
+		value of c: <input type="text" name="c" id="c" />
+	</li>
+	<input type="submit" name="button" id="button1" onclick="roots()" value="Roots!" />
+   </section>
+    <section id="cssResult">
+    <h2>Results</h2>
+     <li>
+		<input type="text" name="result1" id="result1" readonly="true"/>
+	</li>
+	 <li>
+		<input type="text" name="result2" id="result2" readonly="true"/>
+	</li>
+  </section>	
+</body>
+</html>

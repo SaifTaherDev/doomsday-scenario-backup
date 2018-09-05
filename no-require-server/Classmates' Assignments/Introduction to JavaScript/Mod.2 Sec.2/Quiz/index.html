@@ -1,0 +1,24 @@
+<!-- Try to make a quiz using the DOM and buttons, checkboxes, etc.
+Display a question, for example "Which actor played in Titanic?", and display two or three buttons ("Leonardo Di Caprio", "Christian Bale", "Nicolas Cage"). Then, when the user presses a button, you must check the answer and display the next question, etc.
+Use CSS with an image background for the buttons.
+Or use images with click listeners - we saw this in the section about the DOM and events.
+A bit more challenging: use checkboxes instead of a set of buttons (we've done an example close to this in the section that presented the DOM). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Quiz</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/script.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<h1>Quiz</h1>
+	<li>Select the word that correspond to: <i>"chapeau"</i></li>
+	<li>
+	<img src="https://images.freeimages.com/images/large-previews/420/black-hat-1417068.jpg" style="height: 256px" id="hat" onclick="quiz(id)" /> 
+	<img src="https://images.freeimages.com/images/large-previews/2b5/scarf-1184518.jpg" style="height: 256px" id="scarf" onclick="quiz(id)" />
+	<img src="https://images.freeimages.com/images/large-previews/f4c/sunglasses-1417893.jpg" style="height: 256px" id="glasses" onclick="quiz(id)" />
+	</li>
+	<p id="result"></p>
+</body>
+</html>

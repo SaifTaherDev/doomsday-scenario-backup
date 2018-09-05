@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>login screen</title>
+    <style>
+    * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            font-size: 100%;
+            vertical-align: baseline;
+            background: transparent;
+        }
+        #form{
+            position: absolute;
+            top:30vh;
+            left:28.5vw;
+            font-family:calibri;
+            background:grey;
+            border-radius: 0.25em;
+            padding:4em;
+            color:white;
+            width:35em;
+            display:inline-block;
+            text-align:center;
+        }
+        input{
+            border: 1px solid white;
+            background:white;
+        }
+        #login{
+            position:absolute;
+            top:0px;
+            left:36.5vw;
+            font-family:verdanna;
+            font-size:5em;
+        }
+        #validateButton{
+            background-color:white;
+            padding:0.25em;
+            border-radius: 0.3em;
+            transition-duration: 0.5s;
+        }
+        #validateButton:hover{
+            background-color:black;
+            color:white;
+            transition-duration: 0.5s;
+            cursor: pointer;
+        }
+        </style>
+</head>
+
+<body>
+    <div id="login">Login Screen</div>
+    <div id="form">
+        <form id="formFields" method="POST" action="game.php">
+            Name:&nbsp;&nbsp;&nbsp;<input name ="name" id="name" type="text">&nbsp;<span id="nameAlert"></span><br><br>
+            Password:&nbsp;&nbsp;&nbsp;<input name = "pass" id="pass" type="password">&nbsp;<span id="passAlert"></span>
+        </form>
+        <br>
+        <button id="validateButton" onclick="validate();">Log In</button>
+    </div>
+    <!--Start Of JavaScript Code-->
+    <script>
+        var form = document.body.querySelector("#formFields");
+        var nameField = document.body.querySelector("#name");
+        var passField = document.body.querySelector("#pass");
+
+        var nameWarning = document.body.querySelector("#nameAlert");
+        var passWarning = document.body.querySelector("#passAlert");
+
+    function validate(){
+        if(((nameField.value).toUpperCase().includes("SAIF")) && ((nameField.value).toUpperCase().includes("TAHER"))){
+            nameField.style.borderColor = "green";
+            nameWarning.innerHTML = "";
+        }
+        else{
+            nameField.style.borderColor = "red";
+            nameWarning.innerHTML = "Please enter your correct full name!"
+        };
+        if(passField.value == "Manny2009_34"){
+            passField.style.borderColor = "green";
+            passWarning.innerHTML = "";
+        }
+        else{
+            passField.style.borderColor = "red";
+            passWarning.innerHTML = "Please enter your correct Password!"
+        };
+        if(((nameField.value).toUpperCase().includes("SAIF")) && ((nameField.value).toUpperCase().includes("TAHER")) && passField.value == "Manny2009_34" ){
+            form.submit();
+        }
+    }
+    </script>
+</body>
+
+</html>

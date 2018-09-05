@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Lv.2 Completed!</title>
+    <link type="text/css" rel="stylesheet" href="LevelOne.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            height: 100%;
+            background-color: #003366;
+            z-index: 0;
+        }
+        .PageItem {
+            position: absolute;
+            z-index: 1;
+        }
+        #Congrats {
+            width: 100vw;
+            text-align: center;
+            display: block;
+            margin-top: 10em;
+        }
+
+        #CongratsPara {
+            display: inline-block;
+            width: 30vw;
+            background-color: black;
+            border-top-left-radius: 1em;
+            border-top-right-radius: 1em;
+            font-family: Calibri;
+            font-size: 3em;
+            padding: 0.5em;
+            color:white;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            -ms-transition: all 1s ease-in-out;
+            transition: all 1s ease-in-out;
+        }
+
+        #CongratsParaTwo {
+            display: inline-block;
+            background-color: black;
+            border-radius: 1em;
+            font-family: Calibri;
+            font-size: 2em;
+            color: white;
+            padding: 0.5em;
+            width: 50vw;
+            height:5em;
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            -ms-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        #Congraaaats {
+            opacity: 0;
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            -ms-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        #CongraaaaatsTwo {
+            opacity: 0;
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            -ms-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        #GoToLevel2{
+            background:green;
+            color:white;
+            padding:0.5em;
+            border-radius:0.5em;
+            transition-duration:0.5s;
+            transition: background color;
+        }
+        #GoToLevel2:hover{
+            background:white;
+            color:green;
+            transition-duration:0.5s;
+            transition: background color;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="PageItem" id="Congrats">
+        <div id="CongratsPara">
+            <span id="Congraaaats">
+                Congratulations!
+            </span>
+        </div>
+        <div>
+            <div id="CongratsParaTwo">
+                <span id="CongraaaaatsTwo">
+                    You've succesfully completed level one!
+                    <br /><br />
+                          <span id="GoToLevel2">
+                              Click here to go to level 2!
+                          </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Start of Particles.js-->
+    <div id="particles-js"></div>
+    <script type="text/javascript" src="particlesNANI.js"></script>
+    <script type="text/javascript" src="appNANI.js"></script>
+    <script>
+        window.onload = function init() {
+            document.querySelector('#Congraaaats').style.opacity = '1';
+            setTimeout(function () { document.querySelector('#CongraaaaatsTwo').style.opacity = '1' }, 2000)
+
+            document.body.querySelector('#GoToLevel2').addEventListener('click', function (evt) {
+                window.location.replace('../../../../../../../../../../../../LevelsIntersection.html');
+            })
+        }
+    </script>
+</body>
+</html>

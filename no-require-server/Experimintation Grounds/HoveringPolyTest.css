@@ -1,0 +1,8 @@
+﻿#GeorgeWashington {
+    transition: background-color 0.5s linear;
+    background-color:transparent;
+}
+#GeorgeWashington:hover {
+        transition: background-color 0.5s linear;
+        background-color:blue;
+}

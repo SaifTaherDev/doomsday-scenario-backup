@@ -1,0 +1,105 @@
+﻿.TheWholeContainer {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('images/Background.jpg');
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#TheWholeContainer1{
+    background-image: url('images/Hamburger.jpg');
+    background-attachment:fixed;
+}
+.Headings{
+    font-family:calibri;
+    text-align:center;
+    vertical-align:central;
+}
+.PageContent{
+    background-color:white;
+    opacity:0.95;
+    width:80vw;
+    margin: 0px auto;
+    font-family:'Helvetica';
+}
+.HorizontalEmptySpace {
+    width: 100vw;
+    height: 1vh;
+}
+.ContentTable{
+    margin: 0px auto;
+    border:solid;
+    border-color:black;
+    font-family:'Verdana';
+    border-collapse:collapse;
+    font-size:120%;
+}
+#OrderRecipes {
+    margin: -5px auto;
+    border-radius: 20px;
+    background-color: white;
+    opacity: 0.92;
+    display: block;
+    height: 7vh;
+    width: 14vh;
+}
+#OrderNow:hover {
+    transition: background-color 0.5s;
+    border-radius: 20px;
+    transition-duration: 0.5s;
+    background-color: #0099CC;
+}
+#OrderNow {
+    color: black;
+    font-family: 'Helvetica';
+    text-align: center;
+    vertical-align: middle;
+    line-height: 7vh;
+    transition: background-color 0.5s linear;
+    border-radius: 20px;
+}
+#OrderLink {
+    text-decoration:none;
+}
+#SpaghettiIngredientsSauce, #SpaghettiIngredients {
+    text-align: left;
+}
+#VerticalMarginLeft{
+    float:left;
+    width:1vw;
+   height:100vh;
+}
+#VerticalMarginRight {
+    float: right;
+    width: 1vw;
+    height: 100vh;
+}
+#PageTitle{
+    font-size:300%;
+    margin: 0px auto;
+}
+#ImageSpaghetti{
+    width:30%;
+    height:auto;
+    float:right;
+}
+.HeadingsLeft {
+    font-family: calibri;
+    vertical-align: central;
+    float:left;
+}
+#ImageSpaghettiDiv {
+    float: right;
+    vertical-align:middle;
+}
+#MeatballsDiv {
+    float: right;
+    vertical-align: middle;
+}
+#Meatballs {
+    width: 30%;
+    height: auto;
+    float: right;
+    vertical-align:middle;
+}

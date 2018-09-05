@@ -1,0 +1,57 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body {
+    overflow: hidden;
+}
+.FlexContainerRow {
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    z-index: 1;
+}
+.FlixItem_Images {
+    width: 50rem; 
+}
+#CheiftianTwo {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#welcome {
+    position: absolute;
+    z-index: 2;
+    font-family: Calibri;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    transition: background-color color linear;
+    transition-duration: 1s;
+    color: transparent;
+    background-color: transparent;
+    margin-left:13.75em;
+    margin-top:6.4em;
+    padding:0.2em;
+    border-radius:0.4em;
+}
+#divForLayers {
+    position: absolute;
+    z-index: 1;
+}
+#divForhover {
+    height: 33.5em;
+    width: 100rem;
+    position: absolute;
+    z-index: 3;
+}
+#divForhover:hover #welcome {
+    transition: background-color color linear;
+    color: white;
+    background-color: black;
+    transition-duration:1s;
+}

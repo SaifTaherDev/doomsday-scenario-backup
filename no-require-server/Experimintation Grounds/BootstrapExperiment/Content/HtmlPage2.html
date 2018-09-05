@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="../Styles/bootstrap.min.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <style>
+        @keyframes logoFadeIn{
+            0%{
+                opacity:0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes titleFadeIn {
+            0% {
+                bottom: 10em;
+                opacity: 0;
+            }
+
+            100% {
+                bottom: 0em;
+                opacity: 1;
+            }
+        }
+        @keyframes summaryFadeIn{
+            0%{
+                opacity:0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        #bridgeLogo{
+            width:8em;
+        }
+        #bridgeLogo_small{
+            width:100%;
+        }
+        #largeLogo {
+            animation-name: logoFadeIn;
+            animation-duration: 3s;
+            margin: 0px auto;
+            display: block;
+            width: 60vw;
+        }
+        #title * {
+            animation-name: titleFadeIn;
+            animation-duration: 3s;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+            position: relative;
+        }
+
+        #title h3 {
+            font-style: italic;
+        }
+
+        #navbar_bigscreens, #navbar_smallscreens {
+            background: black;
+            color: white;
+        }
+            #navbar_bigscreens span, #navbar_smallscreens .row span {
+                font-size: 1.25em;
+                text-align: center;
+                padding: 0;
+            }
+        #navbar_smallscreens .row {
+            width: 100vw;
+            margin:0px auto;
+            padding:0;
+        }
+        #companySummary{
+            text-align:center;
+            font-size:1.5vw;
+            animation-name:summaryFadeIn;
+            animation-duration:5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron-fluid d-none d-sm-none d-md-block" id="navbar_bigscreens">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <a class="navbar-brand" href="#"><img id="bridgeLogo" src="images/bridgeLogo.png" /></a>
+                <div class="row col-md-4">
+                    <span class="col-md-4">contact</span>
+                    <span class="col-md-4">about</span>
+                    <span class="col-md-4">our work</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="jumbotron-fluid d-block d-md-none" id="navbar_smallscreens">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <a class="navbar-brand" href="#"><img id="bridgeLogo_small" src="images/bridgeLogo.png" /></a>
+                <div class="row">
+                    <span class="col-4">contact</span>
+                    <span class="col-4">about</span>
+                    <span class="col-4">our work</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="jumbotron d-none d-md-block">
+            <img id="largeLogo" src="images/bridge.png" />
+        </div>
+    </div>
+    <div id="title">
+
+    </div>
+    <div class="container">
+        <div id="companySummary" class="jumbotron">
+            <b>Bridge</b> is a web-development specialized team situated in Cairo, Egypt. We build high-quality web applications and deliver efficient solutions for affordable prices. Learn more <a href="#">here</a>.
+        </div>
+    </div>
+    <div class="jumbotron"></div>
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script>
+        var title = document.body.querySelector("#title");
+        window.onload = setTimeout(
+            function () {
+                title.innerHTML = "<h1>Welcome to Bridge</h1><h3> We connect the server with the client</h3>"
+            }, 500)
+    </script>
+</body>
+</html>

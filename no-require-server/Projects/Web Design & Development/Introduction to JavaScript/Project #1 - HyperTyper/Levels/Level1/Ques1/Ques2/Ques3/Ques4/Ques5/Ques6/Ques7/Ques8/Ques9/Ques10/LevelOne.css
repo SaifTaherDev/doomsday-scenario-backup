@@ -1,0 +1,127 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#particles-js {
+    height: 100%;
+    background-color: #002600;
+    z-index:0;
+}
+#QuestionContainer{ 
+    margin-top:5em;
+    width:100%;
+    height:35em;
+    text-align:center;
+}
+.PageItem{
+    position:absolute;
+    z-index:1;
+}
+#TitleDiv { 
+    width: 100vw;
+    text-align: center;
+}
+#LvOneTitle {
+    width:5em;
+    border-radius: 3em;
+    color: white;
+    padding: 0.5em;
+    background: black;
+    font-family: Calibri;
+    font-size: 1.8em;
+}
+#QuestionDiv{
+    width:100%;
+    text-align:center;
+    margin-top:5em;
+}
+#CurrentWordDiv {
+    display: inline-block;
+    background: black;
+    width: 30%;
+    color: white;
+    padding: 2em;
+    border-radius: 3em;
+    text-align: center;
+    font-family: Calibri;
+    font-size: 1.8em;
+}
+#CurrentWord {
+    display: inline-block;
+    background-color: green;
+    width: 50%;
+    height: 2em;
+    line-height: 2em;
+    font-weight: bold;
+    font-family: 'Verdana';
+    -webkit-transition: all 1.5s ease-in-out;
+    -moz-transition: all 1.5s ease-in-out;
+    -o-transition: all 1.5s ease-in-out;
+    -ms-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
+}
+#WordFieldSpan{
+    margin-right:0.2em;
+    display:block;
+    margin-top:2em;
+}
+#Score{
+ margin-left:4em;
+ display:inline;
+}
+#WordField{
+    font-size:1.2em;
+    width:5em;
+}
+#ScoreNumber{
+    display:inline;
+}
+#gameover {
+    width: 100vw;
+    text-align: center;
+    display: none;
+    margin-top: 10em;
+}
+
+#gameoverPara {
+    display: inline-block;
+    width: 30vw;
+    background-color: black;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    font-family: Calibri;
+    font-size: 3em;
+    color: red;
+    padding: 0.5em;
+}
+
+#gameoverParaTwo {
+    display: inline-block;
+    background-color: black;
+    border-radius: 1em;
+    font-family: Calibri;
+    font-size: 2em;
+    color: white;
+    padding: 0.5em;
+    width: 50vw;
+}
+#TryAgain{
+    background-color:grey;
+    border-radius:0.5em;
+    color:white;
+    background:green;
+    padding:0.5em;
+    transition: background color linear;
+    transition-duration:0.5s;
+    cursor:pointer;
+}
+#TryAgain:hover{
+    color:green;
+    background:white;
+    transition: background color linear;
+    transition-duration:0.5s;
+    cursor:pointer;
+    }

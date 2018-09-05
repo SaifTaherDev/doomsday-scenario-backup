@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="../Styles/myTheme.min.css" />
+    <link type="text/css" rel="stylesheet" href="../Styles/navBar_Footer.css" />
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Contact</title>
+    <style>
+        body, html {
+            height: 100%;
+        }
+        #parallax {
+            display: flex;
+            align-items: center;
+            background-image: url("images/contact.jpg");
+            height: 2.5em;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            font-size: 10em;
+        }
+        #parallax p {
+            margin-left:0.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="navbarContainer">
+        </div>
+    </header>
+    <div class="container">
+        <div id="parallax">
+            <p>Contact us</p>
+        </div>
+        <form role="form">
+            <div class="form-group">
+                <label class="control-label" for="exampleInputEmail">Email address</label>
+                <input type="email" class="form-control input-df" id="exampleInputEmail" placeholder="Enter email">
+            </div>
+            <button type="submit" class="btn btn-default btn-df">Submit</button>
+        </form>
+    </div>
+    <footer>
+        <div id="footerContainer">
+
+        </div>
+    </footer>
+    <script src="../Scripts/navBar_Footer.js"></script>
+</body>
+</html>

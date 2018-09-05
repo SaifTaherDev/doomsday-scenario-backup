@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>Speak to Enistien</title>
+</head>
+<body>
+<img src="http://flemingpeace.weebly.com/uploads/5/9/5/6/5956500/5781225.jpg"><br><br><br>
+<button onclick="MentalState()"> Start the conversation</button>
+</body>
+<script>
+function MentalState(){
+var UserName = prompt("Hello there, I'm Enistien. What's your name?")
+var MentalState2 = prompt("How are you, "+UserName+" ? Fine or not Fine?")
+if(MentalState2.value.includes("fine")){
+prompt("Very good, see ya later.")
+} else {
+prompt("Why is that, "+UserName+" ?")
+alert("sorry to hear that, goodbye.") }
+}
+</script>
+</html>

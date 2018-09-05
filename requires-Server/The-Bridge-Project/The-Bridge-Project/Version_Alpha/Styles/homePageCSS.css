@@ -1,0 +1,58 @@
+﻿@keyframes logoFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes titleFadeIn {
+    0% {
+        bottom: 10em;
+        opacity: 0;
+    }
+
+    100% {
+        bottom: 0em;
+        opacity: 1;
+    }
+}
+
+@keyframes summaryFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#largeLogo {
+    animation-name: logoFadeIn;
+    animation-duration: 3s;
+    margin: 0px auto;
+    display: block;
+    width: 60vw;
+}
+
+#title * {
+    animation-name: titleFadeIn;
+    animation-duration: 3s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    position: relative;
+}
+
+#title h3 {
+    font-style: italic;
+}
+
+#companySummary {
+    text-align: center;
+    font-size: 1.5em;
+    animation-name: summaryFadeIn;
+    animation-duration: 5s;
+}

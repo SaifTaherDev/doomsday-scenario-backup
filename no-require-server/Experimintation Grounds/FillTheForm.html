@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OnBlurNANI</title>
+</head>
+<body>
+Password:&nbsp;<input id="UserName1" type="password" onblur="CheckTheInfo()"><span id="UserName3"></span>
+</body>
+<script>
+function CheckTheInfo(){
+var UserName2=document.getElementById("UserName1").value;
+if (UserName2.length<8){
+document.getElementById("UserName3").innerHTML=" 2 short u scrub";
+}
+else {
+document.getElementById("UserName3").innerHTML=" Long enough fck off"; 
+}
+}
+</script>
+</html>

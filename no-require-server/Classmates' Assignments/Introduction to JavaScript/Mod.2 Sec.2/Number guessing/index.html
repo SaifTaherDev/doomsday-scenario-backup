@@ -1,0 +1,23 @@
+<!-- Try to write a small program that asks you to guess a number. It will choose randomly a number, and will ask you to enter a value in an input field. Then it will display "too small" or "too big", until you find the number.
+
+Hint: use the Math.random and Math.round methods, such as in let randomNumber = Math.round(Math.random() * 10); to get a random value between 0 and 10.
+
+For working with input fields, look at section 1.4 from the first module, the math function plotter example used input fields. Or look at the section about DOM in this module. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Number guessing</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<h1>Number guessing between 0 and 10</h1>
+	<li>Write the number you guess</li>
+	<li> <input type="number" name="number" id="number"> </li>
+	<li>
+		<input type="submit" name="button" id="button" onclick="guess()" value="Guess!">
+	</li>
+	<h1>You guess</h1>
+	<li> <input type="text" name="randomNumber" id="randomNumber" readonly="true"> </li>
+</body>
+</html>

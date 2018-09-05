@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Cat Album!</title>
+    <link type="text/css" rel="stylesheet" href="CatAlbum.css" />
+</head>
+<body>
+  <div id="instructions">Click on one of the images to view it here in larger size!</div>
+    <div id="fullScreenDiv">
+    </div>
+    <div id="flexContainer">
+
+    </div>
+    <!--JavaScript Code -->
+    <script>
+        var fullscreen = document.querySelector("#fullScreenDiv");
+        var Album = document.body.querySelector("#flexContainer");
+        var ImgArr = [
+            {
+                "ImgSrc": "https://images.unsplash.com/photo-1482066490729-6f26115b60dc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2e749e5a9492af91a0c4e366e0f58bb4&w=1000&q=80"             
+            },
+            {
+                "ImgSrc": "https://images.medicaldaily.com/sites/medicaldaily.com/files/styles/headline/public/2013/08/04/0/62/6259.jpg"               
+            },
+            {
+                "ImgSrc": "http://www.petsexperience.com/wp-content/uploads/2018/05/What-Are-Hybrid-Cat-Breeds.jpg"
+            },
+            {
+                "ImgSrc": "https://i.ytimg.com/vi/I7jgu-8scIA/maxresdefault.jpg",
+            },
+            {
+                "ImgSrc": "https://g.acdn.no/obscura/API/dynamic/r1/pp/tr_980_551_l_f/0000/polopoly_fs/1.3036173!/image/1545055423.jpg?chk=EA04C3",
+            },
+            {
+                "ImgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg",
+            },
+            {
+                "ImgSrc": "https://amp.thisisinsider.com/images/5b1040d55e48ec24008b460c-750-562.jpg",   
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&h=350https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU9zRc2-sw6_UcC8nZnYrbAL0RtW11Lo0NW6fXp_Sw7U9deds3", 
+            },
+            {
+                "ImgSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCS-aaaF7r3ypNGiFTi29miHqRFGgC7bnqTs7pw-71L0a-Mwnzw",
+            },
+            {
+                "ImgSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNtB5zQceEW9QpPnRRjsYnBpa6Rj-mlNIsW7VBguE9ZkfchF9e",
+            },
+            {
+                "ImgSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKi3KCKud5bg6UQzlBf7vnQVk9Mjk6DwTCeMWllimwJujcb2dd",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/209037/pexels-photo-209037.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/257532/pexels-photo-257532.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/774731/pexels-photo-774731.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/96938/pexels-photo-96938.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+            {
+                "ImgSrc": "https://images.pexels.com/photos/62640/pexels-photo-62640.jpeg?auto=compress&cs=tinysrgb&h=350",
+            },
+        ]
+        window.onload = function initial() {
+            ImgArr.forEach(function (currentImage) {
+                var NewImage = document.createElement("img");
+                NewImage.src = currentImage.ImgSrc;
+                Album.append(NewImage);
+                NewImage.title = "Cute Cats!";
+                NewImage.alt = "Cute Cats!";
+                NewImage.style.border = "1px solid black";
+                NewImage.addEventListener("click", function (evt) {
+                    fullscreen.style.backgroundImage = ("url(" + "'" + currentImage.ImgSrc + "'" + ")");
+                })
+            })
+        }
+    </script>
+</body>
+</html>

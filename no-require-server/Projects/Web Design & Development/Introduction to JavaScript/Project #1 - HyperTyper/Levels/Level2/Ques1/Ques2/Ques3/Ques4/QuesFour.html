@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Lv.1(4/10)</title>
+    <link type="text/css" rel="stylesheet" href="Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\LevelOne.css" />
+</head>
+<body>
+
+    <div class="PageItem" id="QuestionContainer">
+
+        <div id="TitleDiv">
+
+            <span id="LvOneTitle">
+                Lv.1(4/10)
+            </span>
+        </div>
+        <div id="QuestionDiv">
+            <div id="CurrentWordDiv">
+                <div id="CurrentWord">
+                </div>
+                <div id="WordFieldSpan">
+                    <input id="WordField" autofocus />
+                    <div id="Score">
+                        Score: 13
+                        <div id="ScoreNumber">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="PageItem" id="gameover">
+        <span id="gameoverPara">
+            GAME OVER!
+        </span>
+        <div>
+            <span id="gameoverParaTwo">
+                Sorry, but you have failed!  Good luck next time!
+                <br /><br /><br />
+                <span id="TryAgain">Click here to try again!</span>
+                <br /><br /><br />
+                Score : 13
+            </span>
+        </div>
+    </div>
+
+    <!--Start of Particles.js-->
+    <div id="particles-js"></div>
+    <script type="text/javascript" src="Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\particles.js"></script>
+    <script type="text/javascript" src="Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\app.js"></script>
+    <script>
+        window.onload = function initial() {
+
+            var NumOfWord = Math.round(Math.random() * 54);
+            var NumOfWordTwo = Math.round(Math.random() * 54);
+            var LvOneWords = ['able', 'acid', 'aged', 'also', 'area', 'army', 'away', 'baby', 'back', 'ball', 'band', 'bear', 'bell', 'bird', 'body', 'book', 'both', 'bush', 'case', 'chat', 'cool', 'cold', 'bank', 'beat', 'belt', 'blow', 'bomb', 'boom', 'bowl', 'busy', 'camp', 'cash', 'chip', 'coat', 'come', 'copy', 'door', 'drew', 'duke', 'draw', 'ever', 'fall', 'face', 'food', 'john', 'left', 'lane', 'land', 'lead', 'lock', 'lift', 'link', 'open', 'note', 'most', 'meme', 'plus', 'poor', 'path', 'park', 'plus', 'rest', 'rare', 'save'];
+            var CurrentWord = document.querySelector("#CurrentWord");
+            CurrentWord.innerHTML = LvOneWords[NumOfWord];
+            var FieldAnswer = document.getElementById("WordField");
+            var TheWholeContainer = document.body.querySelector('#QuestionContainer');
+            var GameOver = document.body.querySelector('#gameover');
+
+            FieldAnswer.addEventListener('focus', function (evt) {
+                CurrentWord.style.backgroundColor = 'red';
+            })
+
+            addEventListener('keydown', function CorrectAnswer(evt) {
+                var x = 0;
+                if (evt.keyCode == 13) {
+                    if (FieldAnswer.value == CurrentWord.innerHTML) {
+                        window.location.replace('Ques5/QuesFive.html');
+                    }
+                }
+            })
+
+            setTimeout(function () {
+                TheWholeContainer.style.display = 'none';
+                GameOver.style.display = 'block';
+            }, 3000)
+
+            document.body.querySelector("#TryAgain").onclick = function reDirect() {
+                window.location.replace('../../../../../../LevelsIntersection.html');
+            }
+        }
+    </script>
+</body>
+</html>

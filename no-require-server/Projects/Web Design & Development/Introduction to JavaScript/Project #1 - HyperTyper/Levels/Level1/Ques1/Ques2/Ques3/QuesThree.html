@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Lv.1(3/10)</title>
+    <link type="text/css" rel="stylesheet" href="Ques4\Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\LevelOne.css" />
+</head>
+<body>
+
+    <div class="PageItem" id="QuestionContainer">
+
+        <div id="TitleDiv">
+
+            <span id="LvOneTitle">
+                Lv.1(3/10)
+            </span>
+        </div>
+        <div id="QuestionDiv">
+            <div id="CurrentWordDiv">
+                <div id="CurrentWord">
+                </div>
+                <div id="WordFieldSpan">
+                    <input id="WordField" autofocus />
+                    <div id="Score">
+                        Score: 2
+                        <div id="ScoreNumber">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="PageItem" id="gameover">
+        <span id="gameoverPara">
+            GAME OVER!
+        </span>
+        <div>
+            <span id="gameoverParaTwo">
+                Sorry, but you have failed!  Good luck next time!
+                <br /><br /><br />
+                <span id="TryAgain">Click here to try again!</span>
+                <br /><br /><br />
+                Score : 2
+            </span>
+        </div>
+    </div>
+
+    <!--Start of Particles.js-->
+    <div id="particles-js"></div>
+    <script type="text/javascript" src="Ques4\Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\particles.js"></script>
+    <script type="text/javascript" src="Ques4\Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\app.js"></script>
+    <script>
+        window.onload = function initial() {
+
+            var NumOfWord = Math.round(Math.random() * 54);
+            var NumOfWordTwo = Math.round(Math.random() * 54);
+            var LvOneWords = ['the', 'and', 'for', 'are', 'but', 'not', 'you', 'all', 'any', 'can', 'her', 'was', 'one', 'our', 'out', 'day', 'get', 'has', 'him', 'his', 'how', 'man', 'new', 'now', 'old', 'see', 'two', 'way', 'who', 'boy', 'did', 'its', 'let', 'put', 'say', 'she', 'too', 'use', 'dad', 'mom', 'act', 'bar', 'car', 'dew', 'eat', 'far', 'gym', 'hey', 'ink', 'jet', 'key', 'log', 'mad', 'nap', 'odd', 'pal', 'ram', 'saw', 'tan', 'ur', 'vet', 'wed', 'yap', 'zoo'];
+            var CurrentWord = document.querySelector("#CurrentWord");
+            CurrentWord.innerHTML = LvOneWords[NumOfWord];
+            var FieldAnswer = document.getElementById("WordField");
+            var TheWholeContainer = document.body.querySelector('#QuestionContainer');
+            var GameOver = document.body.querySelector('#gameover');
+
+            FieldAnswer.addEventListener('focus', function (evt) {
+               CurrentWord.style.backgroundColor = 'yellow'; if (CurrentWord.style.backgroundColor = 'yellow') {CurrentWord.style.backgroundColor = 'red';}
+            })
+
+            addEventListener('keydown', function CorrectAnswer(evt) {
+                var x = 0;
+                if (evt.keyCode == 13) {
+                    if (FieldAnswer.value == CurrentWord.innerHTML) {
+                        window.location.replace('Ques4/QuesFour.html');
+                    }
+                }
+            })
+
+            setTimeout(function () {
+                TheWholeContainer.style.display = 'none';
+                GameOver.style.display = 'block';
+            }, 3000)
+
+            document.body.querySelector("#TryAgain").onclick = function reDirect() {
+                window.location.replace('../../../../../LevelsIntersection.html');
+            }
+        }
+    </script>
+</body>
+</html>

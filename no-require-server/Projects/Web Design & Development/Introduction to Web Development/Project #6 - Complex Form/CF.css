@@ -1,0 +1,12 @@
+body {
+	height:753px;
+	background:linear-gradient(320deg, red, lightgrey 60%);
+	background-repeat:no-repeat;
+}
+#page {
+	font-family:calibri;
+}
+.table1{
+	width=100%;
+}
+	

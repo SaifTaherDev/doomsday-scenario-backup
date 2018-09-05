@@ -1,0 +1,31 @@
+<html>
+<head><title>Choose the correct answer</title></head>
+<body>
+<!--watch out this page can be a trap-->
+<H1 style="font-size:300%;"><strong><u>Choose the correct answer from <em>a, b, c or d</strong></em></u>:<H1><br><br><br><br>
+<p>Which Matehmatical operation generally sucks more in the arethmitic?</p>
+<input type="button" value ="Addition" onclick="FindOutWhatsTheAnswer1();">
+<input type="button" value ="Subtraction" onclick="FindOutWhatsTheAnswer2();">
+<input type="button" value ="Multiplication" onclick="FindOutWhatsTheAnswer3();">
+<input type="button" value ="-->DIVISION<--" onclick="FindOutWhatsTheAnswer4();">
+<p id="para1" style="color:red;"></p>
+<p id="para2" style="color:green;"></p>
+
+<script type="text/javascript">
+function FindOutWhatsTheAnswer1 ()//watch out it's a trap
+{
+document.getElementById("para1").innerHTML="Unfortuantely, this answer is wrong. Try again!";
+}
+function FindOutWhatsTheAnswer2 ()
+{
+document.getElementById("para1").innerHTML="Unfortuantely, this answer is wrong. Try again!";
+}
+function FindOutWhatsTheAnswer3 ()
+{
+document.getElementById("para1").innerHTML="Unfortuantely, this answer is wrong. Try again!";
+}
+function FindOutWhatsTheAnswer4 ()
+{
+document.getElementById("para1").innerHTML="CORREEEECT!! THE QUESTION WAS SOOO HARD RIGHT ?";
+}
+</script>

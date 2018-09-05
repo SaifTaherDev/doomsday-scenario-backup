@@ -1,0 +1,54 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body {
+    overflow-x: hidden;
+}
+.FlexContainerRow {
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    z-index: 1;
+}
+.FlixItem_Images {
+    width: 50vw; 
+}
+#CheiftianTwo {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#welcome {
+    display: inline-block;
+    width: 45vw;
+    position: absolute;
+    z-index: 2;
+    font-family: Calibri;
+    font-weight: bold;
+    font-size: 200%;
+    text-align: center;
+    transition: background-color color linear;
+    transition-duration: 1s;
+    color: white;
+    background-color: black;
+    margin-left: 27.5vw;
+    margin-top: 6.4em;
+    padding: 0.2em;
+    border-radius: 0.4em;
+}
+#divForLayers {
+    position: absolute;
+    z-index: 1;
+}
+#ResizingTest{
+    display:block;
+    height:120vh;
+    width:50vw;
+    border-radius:0.5em;
+    background-color:red;
+}

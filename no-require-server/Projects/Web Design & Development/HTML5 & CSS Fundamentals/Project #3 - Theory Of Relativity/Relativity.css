@@ -1,0 +1,91 @@
+﻿body {
+    background-image: url("images/website-background-41.jpg"); width: 100%;
+    height: 100%;
+}
+#Container{
+    margin: 0px auto;
+    width: 70%;
+    color: white;
+}
+#PageTitle {
+    font-family: 'Helvetica';
+}
+.PageSubTitle{
+    font-family:Verdana;
+}
+.HorizontalLines{
+    width:100%;
+    height:5px;
+    background-color:white;
+}
+#TableOfContent {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+.TableCell {
+    color: white;
+    font-family: 'Verdanna';
+    font-size: 130%;
+    border: 1px solid white;
+    border-collapse: collapse;
+    text-align:center;
+    vertical-align:central;
+}
+#AsideContent{
+    float:right;
+    width:33.3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333%;
+    text-align:justify;
+}
+.VerticalLines{
+    height: 1067px;
+    width: 1px;
+    background-color: white;
+    float:left;
+}
+.EmptySpace{
+    width:10px;
+    height:1067px;
+}
+.AsideParagraphs {
+    font-family: 'calibri';
+}
+.ContentSections{
+    font-family:Calibri;
+}
+#ThreeDSpaceCurvutureDiagram {
+    height: 250px;
+    width: 385px;
+   
+}
+#ActualContent{
+    width:66.666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666%;
+    text-align:justify;
+}
+#EmptySpace1 {
+    float: left;
+}
+#EmptySpace2{
+    float:right;
+}
+#figcaption1{
+    width:400px;
+    text-align:left;
+    color:white;
+}
+.imagesContainer {
+    background-color: RGB(35,40,45); 
+    border-style:solid;
+    border-color: black;
+}
+#FigureOne{
+    float:left;
+}
+#QuoteOneImage {
+    border-left: lightgray solid;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+#EinistienWithPeople{
+    text-align:left;
+}

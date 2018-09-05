@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet"href="Interactive IS-7 Armour Profile.css" />
+    <title>Interactive IS-7 Armour Profile</title>
+</head>
+<body>
+    <header>
+        <div id="BlackHeader"></div>
+        <div id="ImgHeaderContainer">
+            <img src="images/ImgHeader.png" id="HeaderImage" />
+            <h1>Welcome to the interactive <br />IS-7 Armour Profile</h1>
+        </div>
+        <div id="Container">
+            <div class="content">
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <h3>
+                    What's this about?
+                </h3>
+                <br />
+                <br />
+                <br />
+                <p class="ContentText">
+                    Hello, there! I'm Saif Taher, the developer of this application. I've built this application as a sort of 2D-model of our good old IS-7, You can click on the parts of the hull to view how much armou lies there, in addition to some tip nad tricks on how to angle these parts! Why don't you go ahead and try it out ?
+                </p>
+                <p class="ContentText" id="Note">
+                    NOTE: THIS IS NOT A FULL REVIEW OF THE TIER 10 SOVIET HEAVY TANK, IT'S ONLY A REVIEW OF ITS ARMOR PROFILE.
+                </p>
+                <p class="ContentText">
+                    Click on the different parts of the IS-7 hull to learn more about it:
+                </p>
+                <div id="InteractiveArmorMAAAAAAANDiv">
+
+                    <img src="images/IS-7 - Copy.jpg" usemap="#image-map" id="ImageMap">
+
+                    <map name="image-map">
+                        <area id="Area1Test" target="_self" alt="Lower Plate" title="Lower Plate(240mm-effective)" href="#LowerPlate" coords="551,418,353,418,334,371,408,346,541,369" shape="poly">
+                        <area target="_self" alt="Upper Plate" title="Upper Plate (300-340mm-effective)" href="#UpperPlate" coords="705,334,725,307,716,278,424,281,374,308,348,331" shape="poly">
+                        <area target="_self" alt="Upper Plate" title="Upper Plate (300-340mm-effective)" href="#UpperPlate" coords="542,369,556,327,352,328,412,347" shape="poly">
+                        <area target="_self" alt="Upper Plate" title="Upper Plate (300-340mm-effective)" href="#UpperPlate" coords="408,345,335,369,360,330" shape="poly">
+                        <area target="_self" alt="Side Armor (Penetration - Mostly)" title="Side Armor (Penetration - Mostly)" href="#SideArmor" coords="894,434,562,334" shape="rect">
+                        <area target="_self" alt="Side Armor" title="Side Armor" href="#SideArmor" coords="559,419,549,349,558,338,562,361" shape="poly">
+                        <area target="_self" alt="Side Armor" title="Side Armor" href="#SideArmor" coords="557,414,551,414,545,366,549,357,554,385" shape="poly">
+                        <area target="_self" alt="Side Armor (AutoRicochet - Mostly)" title="Side Armor (AutoRicochet - Mostly)" href="#SideArmor" coords="717,277,726,306,893,321,860,290,786,285,767,285" shape="poly">
+                        <area target="_self" alt="Side Armor (Non-Penetration - Mostly)" title="Side Armor (Non-Penetration - Mostly)" href="#SideArmor" coords="705,336,727,307,891,322,890,336" shape="poly">
+                        <area target="_self" alt="Turret Armor" title="Turret Armor (330mm-500mm-effective)" href="#TurretArmor" coords="777,280,770,268,759,257,749,245,732,232,715,222,703,217,694,208,684,206,672,202,657,200,645,199,631,200,613,195,593,191,575,190,562,191,550,190,539,194,526,197,515,199,505,203,495,206,488,214,481,221,466,233,458,241,448,248,443,256,434,265,427,278" shape="poly">
+                        <area target="_self" alt="Summary" title="Summary" href="#Summary" coords="409,84,41,48" shape="rect">
+                    </map>
+                </div>
+    </header>
+    <h3 id="UpperPlate">Upper Plate</h3>
+    <p>
+        Although it is only 150mm thick, the upper hull armor of the IS 7 is VERY strong. Why, you may ask? Well, it all lies in the power of ANGLING.
+        <br /><br />
+        You see, the lower plate of the IS-7 is well-angled on both the horizontal and vertical axes.
+        <br /><br />
+        This angling results in the effective armor of upper hull reaching from ~290mm all the way up to ~335mm on a level plane (aka. a tank in the same horizontal plane of the IS-7).
+        <br /><br />
+        Not bad, not bad at all! In fact, this is one of the strongest, if not THE STRONGEST upper hull armors in the whole game:
+
+        <img src="ProjectImages/UpperPLate.jpg" id="UpperPLate" />
+        <br /><br />
+        However, this hull shape has a draw back. If you try to side scrape with this hull shape, the left/right part of the upper plate (depending on how you're coming around the corner) will lose a big chunk of its effective armor:
+        <img src="ProjectImages/shot_087 (2).jpg" class="ISUpperPlateUnAngled" id="One" />
+        <br />
+        <img src="ProjectImages/shot_088 (2).jpg" class="ISUpperPlateUnAngled" id="Two" />
+        <br />
+    <p>Instead what you should do is REAR-SIDESCRAPE, as shown:</p>
+    <div id="VidDiv">
+        <video src="ProjectImages/Rear_SideScrape.mp4" loop muted autoplay></video>
+    </div>
+    <br />
+    <p>This way, you won't expose vulnerabilities by sidescraping.</p><br /><br /><br />
+    <div class="weird">
+        <h3 id="SideArmor">Side Armor</h3>
+        <p>Similar to the frontal hull armor, but less impressive, the IS-7 has very good side armor, 100mm in its mid-to-lower part and 150mm on the top part, with some spaced armor as well, as shown below:</p>
+        <img src="ProjectImages/shot_087.jpg" id="SideArmorImage" />
+        <p>
+            Nothing is over-matching that, which make the IS-7 a good side-scraper, but it's not totally fantastic though, it's very easy to over-angle while side-scraping in an IS-7 (I've seen many players do it).
+        </p>
+        <br />
+        <p>In addition to the base 100mm of side armor, the upper part has 150mm. This upper part also has a bit of angling on the horizontal axis, which means that, if you're lucky enough, or alternatively of your enemy doesn't know about that top part, even THE SLIGHTEST angling will result in ricochet of that top part, as shown below:</p>
+        <img src="ProjectImages/shot_084 (2).jpg" />
+        <h3 id="TurretArmor">Turret</h3>
+        <p>What about the turret, then? Well, it's "good" news for the IS-7, the turret has 300mm of frontal armor, and it's very round, reaching ~500mm of armor at some parts. Further more, it has no weak-spots, commander hatches, machine gun ports, etc., whatsoever.</p>
+        <br />
+        <p>Due to this good old Russian turret, you can sit overhaul against virtually any tank except for and only for, tier 10 tank destroyers firing premium ammunition at point-blank range.</p>
+        <br />
+        <p>A perfect scenario for an IS-7 is to find an object to cover its lower plate and expose only its very strong turret and upper plate as shown:</p>
+        <img src="ProjectImages/shot_088.jpg" />
+        <h3 id="LowerPlate">Lower Plate</h3>
+        <p>This fantastic armor on the turret, side, and upper hull of the IS-7 comes at a cost, though. You have a relatively week lower plate (It's still 150mm, but it’s angled on the vertical axis only). Without any angling, most tier 8's will have around 50% chance of penetration with standard rounds, tier 9's will have around 60%, and tier 10's will have around 70%, and if any of those tiers decide to tab their two keys, they will butter through it:</p>
+        <img src="ProjectImages/shot_084.jpg" id="LowerPlate" />
+        <h3 id="Summary">Summary</h3>
+        <p>
+            So to summarize, this is how you play the iS-7 (With regards to armor angling):<br />
+            <ul>
+                <li>
+                    You find a corner and REAR-SIDESCRAPE around it.
+                </li>
+
+                <li>
+                    You find a low spot and sit overhaul behind it.
+                </li>
+                <li>
+                    Try to angle your lower plate when someone is aiming at it (It will become relatively strong).
+                </li>
+            </ul>
+            <br />
+            <span style="font-weight:bold;">
+                THIS IS THE CORRECT WAY TO PLAY THE IS-7. NOW GO OUT THERE, AND TRIGGER SOME SALTY UNICUM GOLD-SPAMMERS USING YOUR STRONG STALINIAN ARMOR!!!
+            </span>
+        </p>
+    </div>
+    </div>
+    </div>
+
+</body>
+</html>

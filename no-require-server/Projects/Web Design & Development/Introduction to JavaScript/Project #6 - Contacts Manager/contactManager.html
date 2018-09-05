@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" rel="stylesheet" href="contactManager.css" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <input id="searchField" type="text" />
+    <button onclick="executeSearch();">search</button>
+    <div id="contactDisplay"></div>
+
+    <input placeholder="name" id="nameField" type="text" />
+    <input placeholder="phone number" id="numField" type="number" />
+    <input placeholder="address" id="addressField" type="text" />
+    <button onclick="addContact();">add contact</button>
+    <!--Start of JavaScript Code-->
+    <script>
+        var displayThem = document.querySelector("#contactDisplay");
+        var searchField = document.body.querySelector("#searchField");
+        var nameFIELD = document.body.querySelector("#nameField");
+        var num = document.body.querySelector("#numField");
+        var address = document.body.querySelector("#addressField");
+
+        var newContactsArr = [];
+
+        class Person {
+            constructor(name, phoneNum, address) {
+                this.name = name;
+                this.phoneNum = phoneNum;
+                this.address = address;
+            }
+            describe() {
+                return ("<table>" + "<tr>" + "<th>" + "name:" + "</th>" + "<td>" + this.name + "</td>" + "</tr>" + "<tr>" + "<th>" + "Phone Number:" + "</th>" + "<td>" + this.phoneNum + "</td>" + "</tr>" + "<tr>" + "<th>" + "Address:" + "</th>" + "<td>" + this.address + "</td>" + "</tr>" + "</table>")
+            }
+        }
+        var John = new Person("John Conway", "1119542742", "4545 Blackwell Street");
+        var Micheal = new Person("Micheal Jordan", "1245783367", "3003 Granville Lane");
+        var Steve = new Person("Steve Jobs", "1544578332", "2137 Buffalo Creek Road");
+
+        var contactList = [
+            John, Micheal, Steve, newContactsArr[0], newContactsArr[1], newContactsArr[2], newContactsArr[3], newContactsArr[4], newContactsArr[5], newContactsArr[6], newContactsArr[7], newContactsArr[8], newContactsArr[9], newContactsArr[10], newContactsArr[11]
+        ]
+
+        function executeSearch() {
+            switch (searchField.value) {
+                case "john":
+                    displayThem.innerHTML = John.describe();
+                    break;
+                case "conway":
+                    displayThem.innerHTML = John.describe();
+                    break;
+                case "micheal":
+                    displayThem.innerHTML = Micheal.describe();
+                    break;
+                case "jordan":
+                    displayThem.innerHTML = Micheal.describe();
+                    break;
+                case "steve":
+                    displayThem.innerHTML = Steve.describe();
+                    break;
+                case "jobs":
+                    displayThem.innerHTML = Steve.describe();
+                    break;
+                case newContactsArr[0].name:
+                    displayThem.innerHTML = newContactsArr[0].describe();
+                    break;
+                case newContactsArr[1].name:
+                    displayThem.innerHTML = newContactsArr[1].describe();
+                    break;
+                case newContactsArr[2].name:
+                    displayThem.innerHTML = newContactsArr[2].describe();
+                    break;
+                case newContactsArr[3].name:
+                    displayThem.innerHTML = newContactsArr[3].describe();
+                    break;
+                case newContactsArr[4].name:
+                    displayThem.innerHTML = newContactsArr[4].describe();
+                    break;
+                case newContactsArr[5].name:
+                    displayThem.innerHTML = newContactsArr[5].describe();
+                    break;
+                case newContactsArr[6].name:
+                    displayThem.innerHTML = newContactsArr[6].describe();
+                    break;
+                case newContactsArr[7].name:
+                    displayThem.innerHTML = newContactsArr[7].describe();
+                    break;
+                case newContactsArr[8].name:
+                    displayThem.innerHTML = newContactsArr[8].describe();
+                    break;
+                case newContactsArr[9].name:
+                    displayThem.innerHTML = newContactsArr[9].describe();
+                    break;
+                case newContactsArr[10].name:
+                    displayThem.innerHTML = newContactsArr[10].describe();
+                    break;
+                case newContactsArr[11].name:
+                    displayThem.innerHTML = newContactsArr[11].describe();
+                    break;
+                default:
+                    displayThem.innerHTML = "Sorry, we couldn't find any matches";
+                    break;
+            }
+        }
+        function addContact(){
+            newContactsArr[newContactsArr.length] = new Person(nameFIELD.value, num.value, address.value);
+            nameFIELD.value = "";
+            num.value = "";
+            address.value = "";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="CustomVidPlayer.css" />
+    <title>CustomVidPlayer</title>
+</head>
+<body>
+    <div id="PlayerContainer">
+
+        <div id="VidZone">
+            <video id="vid" poster="http://static.fastcommerce.com/content/ff808081163c05b001169d6655243ae9/MorePics/missionimpossible.jpg">
+                <source type="video/mp4" src="Wildlife.mp4" />
+            </video>
+        </div>
+
+        <div id="controls">
+            <div id="play"></div>
+            <div id="VolumeDown"></div>
+            <div id="VolumeUp"></div>
+            <div id="mute"></div>
+            <div id="FastForward"></div>
+            <div id="FastBackward"></div>
+            <div id="SpeedMagnitude">
+                <select onclick="playbackRate()" id="SpeedList">
+                    <option disabled selected>Playback speed</option>
+                    <option onclick="playbackRate()" value="0.25">x 0.25</option>
+                    <option onclick="playbackRate()"  value="0.50">x 0.50</option>
+                    <option onclick="playbackRate()"  value="0.75">x 0.75</option>
+                    <option onclick="playbackRate()"  value="1.00">x 1.00</option>
+                    <option onclick="playbackRate()"  value="1.25">x 1.25</option>
+                    <option onclick="playbackRate()"  value="1.50">x 1.50</option>
+                    <option onclick="playbackRate()"  value="1.75">x 1.75</option>
+                    <option onclick="playbackRate()"  value="2.00">x 2.00</option>
+                </select>
+            </div>
+            <div id="vidTitle">Wonderful Island!</div>
+        </div>
+    </div>
+    <!--Start of JavaScript Code-->
+    <script>
+        var playButton = document.body.querySelector("#play");
+        var volumePlus = document.body.querySelector("#VolumeDown");
+        var volumeMinus = document.body.querySelector("#VolumeUp");
+        var volumeMute = document.body.querySelector("#mute");
+        var fastForward = document.body.querySelector("#FastForward");
+        var fastBackward = document.body.querySelector("#FastBackward");
+        var playBackSpeed = document.body.querySelector("#SpeedList");
+        var video = document.body.querySelector("#vid");
+
+        var numClicksPlay = 0;
+        var numClicksMute = 0;
+        var numClicksPlayTwos = 0;
+
+        window.onload = function initial() {
+
+            video.volume = 0.5;
+
+            playButton.addEventListener('click', function (e) {
+                numClicksPlay++;
+                if (numClicksPlay % 2 == 0) {
+                    video.pause();
+                    playButton.style.backgroundImage = "url('images/PlayButton.png')";
+                }
+                else {
+                    video.play();
+                    playButton.style.backgroundImage = "url('https://cdn3.iconfinder.com/data/icons/audio-sound-and-video/64/audio-video-outline-pause-512.png')"
+                }
+
+            })
+            volumePlus.addEventListener('click', function (e) {
+                video.volume += 0.1;
+            })
+            volumeMinus.addEventListener('click', function (e) {
+                video.volume -= 0.1;
+            })
+            volumeMute.addEventListener('click', function (e) {
+                numClicksMute++
+                if (numClicksMute % 2 == 0) {
+                    volumeMute.style.backgroundImage = "url('https://media.forgecdn.net/avatars/52/147/636111705415977553.png')";
+                    video.muted = false;
+                }
+                else {
+                    volumeMute.style.backgroundImage = "url('https://www.shareicon.net/download/2015/09/12/100044_mute.ico')"
+                    video.muted = true;
+                }
+            })
+            fastForward.addEventListener('click', function (e) {
+                video.currentTime -= 5;
+            })
+            fastBackward.addEventListener('click', function (e) {
+                video.currentTime += 5;
+            })
+            window.addEventListener("resize", function (e) {
+                document.body.querySelector("#SpeedList").style.fontSize = (window.innerWidth / screen.width) * 1.5 + "em";
+                document.body.querySelector("#SpeedList").style.marginTop = (window.innerWidth / screen.width) * 0.67 + "em";
+                document.body.querySelector("#SpeedList").style.marginLeft = (window.innerWidth / screen.width) * 0.05 + "em";
+                document.body.querySelector("#vidTitle").style.fontSize = (window.innerWidth / screen.width) * 3 + "em";
+            })  
+        } 
+        function playbackRate() {
+            video.playbackRate = playBackSpeed.value;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head><title>TheMostAdvancedFormEverOMG</title>
+<link rel="stylesheet" type="text/css" href="CSS4Form.css">
+</head>
+<body>
+<form name="form1">
+<p class="regular"><p class="medium">G-mail</p>:&nbsp;<input type="text" id="G-mail" name="field1" onblur="FormValidation()"><span id="span1"></span>
+<br><br><p class="medium">Username</p> &nbsp;<input type="text" id="UserName" name="field2" onblur="FormValidation()"><span id="span2"></span>
+<br><br><p class="medium">Password</p> &nbsp;<input type="text" id="PassWord" name="field3" onblur="FormValidation()"><span id="span3"></span>
+</p>
+</form>
+</body>
+<script>
+function FormValidation()
+{
+if (form1.field1.value.includes("@gmail.com")){
+document.getElementById("G-mail").style.borderColor="green";
+document.getElementById("span1").innerHTML="";
+}
+else
+{
+document.getElementById("span1").innerHTML="Please enter the correct E-mail";
+document.getElementById("G-mail").style.borderColor="red";
+return false;
+}
+if(form1.field2.value.length<5){
+document.getElementById("span2").innerHTML="The username should be at least 6 characters long"
+document.getElementById("UserName").style.borderColor="red";
+return false;
+}
+else {
+document.getElementById("span2").innerHTML="";
+document.getElementById("UserName").style.borderColor="green";
+}
+if(form1.field3.value.length<8){
+document.getElementById("span3").innerHTML="the password should be at least 8 characters long"
+document.getElementById("PassWord").style.borderColor="red";
+return false;
+}
+if (form1.field3.value.length>8){
+document.getElementById("span3").innerHTML=""
+document.getElementById("PassWord").style.borderColor="green";
+}
+}
+</script>
+</html>
+

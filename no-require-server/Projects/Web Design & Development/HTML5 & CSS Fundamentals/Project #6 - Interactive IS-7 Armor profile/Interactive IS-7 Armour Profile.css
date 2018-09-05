@@ -1,0 +1,124 @@
+﻿body {
+    overflow-x: hidden;
+    background-image: url('images/blueprint-texture-free.jpg');
+}
+#BlackHeader {
+    margin-top: -1em;
+    height: 4em;
+    width: 105%;
+    margin-left: -1em;
+    background: linear-gradient(360deg, #000000, #333333);
+}
+#HeaderImage {
+    width: 100vw;
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    margin-top: 3em;
+    
+}
+#ImgHeaderContainer h1 {
+    color: white;
+    font-family: Verdana;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin-left: 21.3rem;
+    margin-top: 5rem;
+    font-size: 300%;
+    z-index: 2;
+    transition: background-color 0.5s linear;
+    background-color: transparent;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 20px;
+    text-align: center;
+}
+#ImgHeaderContainer h1:hover {
+    color: white;
+    transition: background-color 0.5s linear;
+    background-color: #383838;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius:20px;
+}
+#Container {
+
+    background-repeat:repeat;
+    width: 105vw;
+    margin-left:-5em;
+}
+h3 {
+    float: left;
+    text-align: left;
+    color: #EBEBEB;
+    font-style: italic;
+    padding-left: 2em;
+    font-size: 150%;
+    font-family:Helvetica;
+}
+.content {
+    margin: 0px auto;
+    width: 75vw;
+    height:370em;
+    background: rgb(26,26,26);
+    align-content: center;
+}
+body p, body li, body span {
+    padding-left: 3em;
+    padding-right:3em;
+    color: white;
+    font-family: white;
+    font-family: Calibri;
+    font-size: 120%;
+    text-align:left;
+    float:left;
+}
+#Note{
+    text-transform:lowercase;
+    font-weight:bold;
+}
+#InteractiveArmorMAAAAAAANDiv{
+    margin-left:6.4em;
+}
+#InteractiveArmorMAAAAAAAN{
+  width:100%;
+  height:auto;
+}
+.ISUpperPlateUnAngled{
+    width:40%;
+    margin-left:15%;
+    margin-top:2em;
+  
+}
+#One, #Two{
+    margin-left:16.5em;
+}
+div video {
+    width: 40%;
+    margin-left: 22.21em;
+    margin-top: 2em;
+}
+.weird h3{
+    margin-right:20em;
+}
+.weird img{
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 2em;
+ }
+#UpperPLate {
+    width: 40%;
+    margin-left: 16.5em;
+    margin-top: 2em;
+}
+li{
+    margin-right:20em;
+    margin-top:0.25em;
+    margin-bottom:0.25em;
+}
+ul{
+    margin-bottom:20em;
+}

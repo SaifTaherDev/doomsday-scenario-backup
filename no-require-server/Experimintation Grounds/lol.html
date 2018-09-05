@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Form 101</title>
+</head>
+<body>
+<center>
+<p><em><u><strong><H1>Account Signup</H1></strong></u></em></p>
+<form action="pro.php" name="form1">
+Name:&nbsp;<input type="text"><br><br>
+Gender:<br><br> Male &nbsp;<input type="radio" name="1"> &nbsp; Female<input type="radio" name="1"><br><br>
+Age: <input type="text" name="t1"><br><br>
+Password: &nbsp; <input type="password"><br><br>
+First and/or Second and/or third language: <br><br>
+English &nbsp;<input type="checkbox">&nbsp; French &nbsp; <input type="checkbox">&nbsp; German &nbsp;<input type="checkbox"><br><br>
+<input type="submit" onclick="country()" value="submit">&nbsp;&nbsp;
+<input type="reset" value="new">
+<head>
+<script>
+function country()
+{
+if (form1.t1.value>=18)
+{
+alert("Your Account Has Been Succesfuly Rigestered! Visit www.SaifPrank.com to login into your account");
+}
+}
+</script>
+</head>
+</center>
+</form>
+</body>
+</html>

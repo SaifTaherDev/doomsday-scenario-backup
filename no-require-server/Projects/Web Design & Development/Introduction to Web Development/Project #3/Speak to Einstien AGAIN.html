@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Speak to Einstien AGAIN</title>
+</head>
+<body>
+<button onclick="Conversation()">Start Conversation</button>
+<p id="MentalState"></p>
+</body>
+<script>
+function Conversation(){
+var UserName =prompt("What's your name?")
+if(UserName!=""){
+document.getElementById("MentalState").innerHTML=
+"Hello there, "+UserName+". How are you doing?";
+}
+}
+</script>
+</html>

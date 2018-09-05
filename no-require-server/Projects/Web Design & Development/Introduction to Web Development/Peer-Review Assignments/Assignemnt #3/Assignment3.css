@@ -1,0 +1,21 @@
+body{
+	height:753px;
+	background:linear-gradient(135deg,yellow,orange);
+	}
+
+#QuickInfo{
+font-size:200%;font-family:calibri;float:right;
+}
+
+#TableTitle{
+	font-size:120%;font-family:calibri;float:right;
+}
+#math1{
+	height:200px;
+	width:300px;
+}
+
+.paragraph{
+	font-family:calibri;
+	font-size:200%;
+}
