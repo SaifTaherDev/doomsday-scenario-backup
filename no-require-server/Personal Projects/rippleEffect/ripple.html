@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>canvas</title>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        var canvas = document.body.querySelector("#myCanvas");
+        var ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth * 0.98;
+        canvas.height = window.innerHeight * 0.97;
+        var shapeArr = [];
+        window.addEventListener('resize', function () {
+            canvas.width = window.innerWidth * 0.98;
+            canvas.height = window.innerHeight * 0.98;
+            CW = canvas.width;
+            CH = canvas.height;
+        })
+        var CW = canvas.width;
+        var CH = canvas.height;
+        class circle {
+            constructor(centerX, centerY, radius) {
+                this.centerX = centerX;
+                this.centerY = centerY;
+                this.radius = radius;
+                this.opacity = 1;
+                this.strokeStyle = "rgba(0, 0, 0, " + this.opacity + ")";
+            }
+            expandCircle() {
+                this.radius += 3;
+                this.opacity -= 0.015;
+                this.strokeStyle = "rgba(0, 0, 0, " + this.opacity + ")";
+                if (this.radius > window.innerWidth/4) {
+                    this.radius = 0;
+                    this.opacity = 1;
+                }
+            }
+        }
+
+        function createCircle(centerX, centerY, radius) {
+            shapeArr.push(new circle(centerX, centerY, radius));
+        }
+
+        function drawCircle(centerX, centerY, radius, strokeClr) {
+            ctx.strokeStyle = strokeClr;
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore()
+        }
+
+        createCircle(CW / 2, CH / 2, 0);
+        createCircle(CW / 2, CH / 2, 0);
+        createCircle(CW / 2, CH / 2, 0);
+        
+        function firstWave() {
+            ctx.clearRect(0, 0, CW, CH);
+            drawCircle(shapeArr[0].centerX, shapeArr[0].centerY, shapeArr[0].radius, shapeArr[0].strokeStyle);
+            shapeArr[0].expandCircle();
+            requestAnimationFrame(firstWave);
+        };
+        firstWave();
+
+        setTimeout(function secondWave() {
+            drawCircle(shapeArr[1].centerX, shapeArr[1].centerY, shapeArr[1].radius, shapeArr[1].strokeStyle);
+            shapeArr[1].expandCircle();
+            requestAnimationFrame(secondWave);
+        }, 250);
+
+        setTimeout(function thirdWave() {
+            drawCircle(shapeArr[2].centerX, shapeArr[2].centerY, shapeArr[2].radius, shapeArr[2].strokeStyle);
+            shapeArr[2].expandCircle();
+            requestAnimationFrame(thirdWave);
+        }, 500)
+    </script>
+</body>
+</html>

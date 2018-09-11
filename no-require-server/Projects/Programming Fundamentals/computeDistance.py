@@ -1,99 +1,51 @@
-def computeDist(compare, set):
-    from math import sqrt;
-    alert = "";
-    counter = 0;
+#functions & variables definitions
+from math import sqrt;
+x_input = "";
+y_input = "";
+compare_input_X = "";
+compare_input_Y = "";
 
-    comparePoints = [];
-    xPoints = [];
-    yPoints = [];
-    xResults = [];
-    yResults = [];
-    finalResults = [];
+xPoints = [];
+yPoints = [];
+xResults = [];
+yResults = [];
+finalResults = [];
 
-    try:
-        if(compare[counter] == "("):
-            alert = "";
-            counter += 1;
-            if(compare[counter].isdigit()):
-                alert = "";
-                comparePoints.append(compare[counter]);
-                counter += 1;
-                if(compare[counter] == ","):
-                    alert = "";
-                    counter += 1;
-                    if(compare[counter].isdigit()):
-                        alert = "";
-                        comparePoints.append(compare[counter]);
-                        counter += 1;
-                        if(compare[counter] == ")"):
-                            pass;
-                        else: alert = "Please type a valid compare-against point,";
-                    else: alert = "Please type a valid compare-against point,";
-                else: alert = "Please type a valid compare-against point,";
-            else: alert = "Please type a valid compare-against point,";
-        else: alert = "Please type a valid compare-against point,";
-    except IndexError:
-        alert = "Please type a valid compare-against point INDEX,";
-    
-    if(len(compare) > 5):
-        alert = "Please type a valid compare-against point,";
+def requestInput():
+    x_input = input("\nPlease type an X-value: ");
+    y_input = input("Please type a Y-value: ");
+    initializeFlow(x_input, y_input);
 
-    print(alert + "\n");
-
-    counter = 0;
-    try:
-        while(counter < len(set)):
-            if(set[counter] == "("):
-                alert = "";
-                counter += 1;
-                if(set[counter].isdigit()):
-                    alert = "";
-                    xPoints.append(set[counter]);
-                    counter += 1;
-                    if(set[counter] == ","):
-                        counter += 1;
-                        alert = "";
-                        if(set[counter].isdigit()):
-                            alert = "";
-                            yPoints.append(set[counter]);
-                            counter += 1;
-                            if(set[counter] == ")"):counter += 1;
-                            else: 
-                                alert = "Please type a valid set of points,";
-                                break;
-                        else: 
-                            alert = "Please type a valid set of points,";
-                            break;
-                    else: 
-                        alert = "Please type a valid set of points,";
-                        break;
-                else:
-                    alert = "Please type a valid set of points,";
-                    break;
-            else:
-               alert = "Please type a valid set of points,";
-               break;
-    except IndexError:
-        alert = "Please type a valid set of points INDEX,";
-    
-    print(alert + "\n");
-
-    if(alert in ["Please type a valid set of points,", "Please type a valid compare-against point,"]):
-        pass;
+def initializeFlow(x_num, y_num):
+    if(x_num.isdigit() and y_num.isdigit()):
+        xPoints.append(int(x_num));
+        yPoints.append(int(y_num));
+    elif(x_num.lower() == "compare" or y_num.lower() == "compare"):
+        compare_input_X = input("\nPlease type the X value of the point you want to compare against: ")
+        compare_input_Y = input("Please type the Y value of the point you want to compare against: ")
+        if(compare_input_X.isdigit() and compare_input_Y.isdigit()):
+            constructXYLists(compare_input_X, compare_input_Y)
+        else:
+            print("Please type a number");
     else:
-        counter = 0;
+        print("\nPlease type a valid x/y value");
 
-        while(counter < len(xPoints)):
-            xResults.append(abs(int(comparePoints[0]) - int(xPoints[counter])));
-            yResults.append(abs(int(comparePoints[1]) - int(yPoints[counter])));
-            finalResults.append(round(sqrt(xResults[counter]**2 + yResults[counter]**2), 2));
-            counter += 1;
+def constructXYLists(x_num, y_num):
+    for num in xPoints:
+        xResults.append(abs(int(x_num) - num));
+    for num in yPoints:
+        yResults.append(abs(int(y_num) - num));
+    computeDist();
 
-        print("closest point is: (" + xPoints[finalResults.index(min(finalResults))] + "," + yPoints[finalResults.index(min(finalResults))] + ")",)
-        
-print("Please type a string of points to compare against,\n\n");
-print("And a string of points to compare against the original point (don't include any whitespace: only type the x and y coordinates of the point, seperated by a coma and surrounded by two brackets: '(' and ')', don't type anything between each POINT): \n\n\n");
+def computeDist():
+    counter = 0;
+    while (counter < len(xResults)):
+        finalResults.append(sqrt((xResults[counter]*xResults[counter])+(yResults[counter]*yResults[counter])))
+        counter += 1;
+    xValueFinal = xPoints[finalResults.index(min(finalResults))];
+    yValueFinal = yPoints[finalResults.index(min(finalResults))];
+    print("\nclosest point is: (" + str(xValueFinal) + ", " + str(yValueFinal) + ")");
+
+#start of program flow
 while True:
-    comparePoint = input("Please type the Compare-Against Point:\n ");
-    pointsSet = input("Please type the set of points:\n ");
-    computeDist(comparePoint, pointsSet);
+    requestInput();

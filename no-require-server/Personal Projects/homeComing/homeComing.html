@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="ar-eg">
+<head>
+    <link href="homeComing.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div id="container">
+        <canvas id="canvasOne"></canvas>
+        <div id="majorContainer">
+            <h1>حج مبرور و سعي مشكور</h1>
+            <div id="imgContainer">
+            </div>
+        </div>
+        <canvas id="canvasTwo"></canvas>
+    </div>
+    <script src="scripts/canvas.js"></script>
+    <script>
+        var imgContainer = document.body.querySelector("#imgContainer");
+        var rotateCounter = 0;
+
+        setInterval(function () {
+            if (rotateCounter % 2 == 0) {
+                imgContainer.style.transform = "scaleX(-1)"
+                setTimeout(function () {
+                    imgContainer.style.backgroundImage = "url('images/mosque.png')"
+                }, 580)
+            }
+            else {
+                imgContainer.style.transform = "scaleX(1)";
+                setTimeout(function () {
+                    imgContainer.style.backgroundImage = "url('images/kaaba.png')"
+                }, 600)
+            }
+            rotateCounter++;
+        }, 2500)
+    </script>
+</body>
+</html>

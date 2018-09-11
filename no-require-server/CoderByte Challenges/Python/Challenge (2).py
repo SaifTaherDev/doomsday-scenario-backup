@@ -8,6 +8,6 @@ def FirstFactorial(num):
 
 while True:
     user_input = input("Type any number to get its factorial: ");
-    print(FirstFactorial(user_input));
+    print(FirstFactorial(int(user_input)));
 
 

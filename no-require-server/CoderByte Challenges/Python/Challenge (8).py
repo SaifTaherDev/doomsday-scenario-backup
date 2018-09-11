@@ -1,5 +1,5 @@
 # CheckNums
-# compare 2 numbers and determine hwich is greater
+# compare 2 numbers and determine which is greater
 
 def CheckNums(num1,num2): 
     try:
