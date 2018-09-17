@@ -1,8 +1,10 @@
 //Drawing & Animating: Classes & Variables Definitions
+let levelDiv = document.body.querySelector("#levelDiv");
+let levelDivSpans = document.body.querySelectorAll("#levelDiv span");
 let canvas = document.body.querySelector("#gameCanvas");
 let ctx = canvas.getContext("2d");
 canvas.width =  window.innerWidth;
-canvas.height = 0.9 * window.innerHeight;
+canvas.height = window.innerHeight;
 let CW = canvas.width;
 let CH = canvas.height;
 let planeArr = [];
@@ -33,6 +35,7 @@ class plane {
         this.size = size;
         this.color = color;
         this.speed = speed;
+        this.counter = 0;
     }
     drawPlane() {
         ctx.save();
@@ -113,8 +116,20 @@ function detectHits() {
         planeCollisionCounter = 0;
         for (let plane of planeArr) {
             if (((shot.x - 10) > (plane.x - 40) && (shot.x + 10) < (plane.x + 40) && shot.y < plane.y - 10) || ((shot.x - 10) > (plane.x - 80) && (shot.x + 10) < (plane.x + 80) && shot.y < plane.y - 75)) {
-                planeArr.splice(planeCollisionCounter, 1)
                 hotShotsArr.splice(hotShotsArr.indexOf(shot), 1)
+                if (plane.color == "green") {
+                    planeArr.splice(planeCollisionCounter, 1)
+                } else if (plane.color == "yellow") {
+                    plane.counter++;
+                    if (plane.counter >= 2) {
+                        planeArr.splice(planeCollisionCounter, 1)
+                    }
+                } else {
+                    plane.counter++;
+                    if (plane.counter >= 3) {
+                        planeArr.splice(planeCollisionCounter, 1)
+                    }
+                }
             }
             planeCollisionCounter++;
         }
@@ -151,7 +166,6 @@ function resetGame() {
 function changeLevel() {
     switch (levelNum) {
         case 1:
-            resetGame();
             newPlanes = setInterval(function newPlanes() {
                 if (planeCounter < 25) {
                     planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
@@ -160,7 +174,14 @@ function changeLevel() {
             }, 1000)
             break;
         case 2:
-            resetGame();
+            newPlanes = setInterval(function newPlanes() {
+                if (planeCounter < 25) {
+                    planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
+                    planeCounter++;
+                }
+            }, 850)
+            break;
+        case 3:
             newPlanes = setInterval(function newPlanes() {
                 if (planeCounter < 25) {
                     planeDecider = Math.random()
@@ -171,10 +192,22 @@ function changeLevel() {
                     }
                     planeCounter++;
                 }
-            }, 650)
+            }, 1000)
             break;
-        case 3:
-            resetGame()
+        case 4:
+            newPlanes = setInterval(function newPlanes() {
+                if (planeCounter < 25) {
+                    planeDecider = Math.random()
+                    if (planeDecider > 0.5) {
+                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
+                    } else {
+                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.75, "yellow", 7.5));
+                    }
+                    planeCounter++;
+                }
+            }, 850)
+            break;
+        case 5:
             newPlanes = setInterval(function newPlanes() {
                 if (planeCounter < 25) {
                     planeDecider = Math.random()
@@ -183,14 +216,44 @@ function changeLevel() {
                     } else if (planeDecider > 0.3333333) {
                         planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.75, "yellow", 7.5));
                     } else {
-                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.5, "red", 10));
+                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.5, "red", 8.5));
                     }
                     planeCounter++;
                 }
-            }, 500)
+            }, 1000)
+            break;
+        case 6:
+            newPlanes = setInterval(function newPlanes() {
+                if (planeCounter < 25) {
+                    planeDecider = Math.random()
+                    if (planeDecider > 0.666666) {
+                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
+                    } else if (planeDecider > 0.3333333) {
+                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.75, "yellow", 7.5));
+                    } else {
+                        planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.5, "red", 8.5));
+                    }
+                    planeCounter++;
+                }
+            }, 850)
             break;
     }
+    hideMenu();
     document.body.style.background = "url(Images/space.png)"
+}
+function displayMenu() {
+    levelDiv.style.display = "block";
+    for (let span of levelDivSpans) {
+        span.style.display = "inline-block";
+    }
+    canvas.style.cursor = "default"
+}
+function hideMenu() {
+    levelDiv.style.display = "none";
+    for (let span of levelDivSpans) {
+        span.style.display = "none";
+    }
+    canvas.style.cursor = "none"
 }
 function determineWin() {
     for (let plane of planeArr) {
@@ -205,6 +268,7 @@ function determineWin() {
         planeArr = []
         hotShotsArr = []
         text = "You Lose!"
+        displayMenu()
     }
     if (planeArr.length == 0 && planeCounter == 25) {
         clearInterval(newPlanes)
@@ -212,6 +276,7 @@ function determineWin() {
         planeArr = []
         hotShotsArr = []
         text = "You Win!"
+        displayMenu()
     }
     if (winCounter < 4 && planeCounter == 25) {
         for (let plane in planeArr) {
@@ -228,12 +293,13 @@ function determineWin() {
             planeArr = []
             hotShotsArr = []
             text = "You Win!"
+            displayMenu()
         }
     }
 }
 function mainLoop() {
     canvas.width = window.innerWidth;
-    canvas.height = 0.9 * window.innerHeight;
+    canvas.height = window.innerHeight;
     CW = canvas.width;
     CH = canvas.height;
     player.y = 0.95 * CH;
@@ -278,6 +344,7 @@ document.onkeydown = function (evt) {
     if (evt.keyCode == 27) {
         escCounter++;
         if (escCounter % 2 != 0) {
+            displayMenu()
             canvas.removeEventListener("mousemove", movePlayer);
             clearInterval(newPlanes)
             canvas.removeEventListener("click", fireHotShots);
@@ -290,45 +357,9 @@ document.onkeydown = function (evt) {
                 plane.speed = 0;
             }
         } else {
+            hideMenu()
             backgroundMusic.play()
-            switch (levelNum) {
-                case 1:
-                    newPlanes = setInterval(function newPlanes() {
-                        if (planeCounter < 25) {
-                            planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
-                            planeCounter++;
-                        }
-                    }, 1000)
-                    break;
-                case 2:
-                    newPlanes = setInterval(function newPlanes() {
-                        if (planeCounter < 25) {
-                            planeDecider = Math.random()
-                            if (planeDecider > 0.5) {
-                                planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
-                            } else {
-                                planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.75, "yellow", 7.5));
-                            }
-                            planeCounter++;
-                        }
-                    }, 650)
-                    break;
-                case 3:
-                    newPlanes = setInterval(function newPlanes() {
-                        if (planeCounter < 25) {
-                            planeDecider = Math.random()
-                            if (planeDecider > 0.666666) {
-                                planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 1, "green", 5));
-                            } else if (planeDecider > 0.3333333) {
-                                planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.75, "yellow", 7.5));
-                            } else {
-                                planeArr.push(new plane(Math.random() * ((CW - 150) - 150) + 150, -100, 0.5, "red", 10));
-                            }
-                            planeCounter++;
-                        }
-                    }, 500)
-                    break;
-            }
+            changeLevel();
             canvas.addEventListener("mousemove", movePlayer)
             canvas.addEventListener("click", fireHotShots);
             shotsVelocity = 10;
@@ -350,4 +381,17 @@ document.onkeydown = function (evt) {
             }
         }
     }
-};
+}
+
+//levelDiv.addEventListener("mouseover", function () {
+//    for (let span of levelDivSpans) {
+//span.style.display = "inline-block";
+//span.style.opacity = "1";
+//    }
+//})
+//levelDiv.addEventListener("mouseout", function () {
+//    for (let span of levelDivSpans) {
+//        span.style.display = "none";
+//        span.style.opacity = "0";
+//    }
+//})

@@ -15,13 +15,15 @@
             display: flex;
             flex-direction: row;
             justify-content: space-around;
+            position:absolute;
             height: 10vh;
             width: 100vw;
             border-bottom: 1px solid black;
+            cursor:default;
         }
         #levelDiv span{
-            display:inline-block;
-            width:17.5%;
+            display:none;
+            width:16.4%;
             height:100%;
             line-height:10vh;
             text-align:center;
@@ -30,25 +32,37 @@
             border-radius:0.1em;
             background:white;
             color:black;
-            transition-duration:0.5s;
             cursor:pointer;
+            transition-duration:0.5s;
         }
         #levelDiv span:hover {
             border-radius: 1em;
         }
-        canvas{
-            cursor:none;
+        canvas {
+            cursor: none;
         }
     </style>
 </head>
 <body>
     <div id="levelDiv">
-        <span onclick="levelNum = 1; changeLevel()">Level 1</span>
-        <span onclick="levelNum = 2; changeLevel()">Level 2</span>
-        <span onclick="levelNum = 3; changeLevel()">Level 3</span>
+        <span id="1">Level 1</span>
+        <span id="2">Level 2</span>
+        <span id="3">Level 3</span>
+        <span id="4">Level 4</span>
+        <span id="5">Level 5</span>
+        <span id="6">Level 6</span>
     </div>
     <canvas id="gameCanvas"></canvas>
     <script src="Scripts/howler.min.js"></script>
     <script src="Scripts/AttackOnShip.js"></script>
+    <script>
+        for (let span of levelDivSpans) {
+            span.addEventListener("click", function () {
+                resetGame();
+                levelNum = parseInt(span.id);
+                changeLevel();
+            })
+        }
+    </script>
 </body>
 </html>
