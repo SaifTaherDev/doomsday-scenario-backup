@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Attack On Ship!</title>
+    <style>
+        body {
+            margin: 0px auto;
+            overflow: hidden;
+            background: url("Images/space.png");
+            background-repeat: repeat;
+        }
+        #levelDiv {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            height: 10vh;
+            width: 100vw;
+            border-bottom: 1px solid black;
+        }
+        #levelDiv span{
+            display:inline-block;
+            width:17.5%;
+            height:100%;
+            line-height:10vh;
+            text-align:center;
+            font-family:Calibri;
+            font-size:3em;
+            border-radius:0.1em;
+            background:white;
+            color:black;
+            transition-duration:0.5s;
+            cursor:pointer;
+        }
+        #levelDiv span:hover {
+            border-radius: 1em;
+        }
+        canvas{
+            cursor:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="levelDiv">
+        <span onclick="levelNum = 1; changeLevel()">Level 1</span>
+        <span onclick="levelNum = 2; changeLevel()">Level 2</span>
+        <span onclick="levelNum = 3; changeLevel()">Level 3</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <script src="Scripts/howler.min.js"></script>
+    <script src="Scripts/AttackOnShip.js"></script>
+</body>
+</html>
