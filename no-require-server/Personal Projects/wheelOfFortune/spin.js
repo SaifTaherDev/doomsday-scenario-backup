@@ -33,6 +33,7 @@ class arc {
         ctx.save();
         ctx.translate(this.centerX, this.centerY);
         ctx.fillStyle = this.fill;
+        ctx.strokeStyle = this.fill;
         ctx.rotate(rotateVar * Math.PI / 180);
         ctx.beginPath();
         ctx.arc(0, 0, radius, this.sAngle, this.eAngle);
@@ -40,6 +41,7 @@ class arc {
         ctx.lineTo(0, 0);
         ctx.lineTo(getPoint(0, 0, radius, this.eAngle)[0], getPoint(0, 0, radius, this.eAngle)[1]);
         ctx.fill();
+        ctx.stroke();
         ctx.closePath();
         ctx.restore();
     }

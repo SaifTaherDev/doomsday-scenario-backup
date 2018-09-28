@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Ahmad Statistic</title>
+    <style>
+
+        body, header, label, footer, #day {
+            display: flex;
+            align-items: center;
+            font-family: Calibri;
+            text-align:center;
+        }
+        body{
+            flex-direction:column;
+            justify-content:space-around;
+            height:275vh;
+        }
+        header {
+            font-size: 5em;
+        }
+        label, footer, #day {
+            font-size: 2em;
+        }
+        table{
+            border:1px solid black;
+            border-collapse:collapse;
+        }
+        td, th{
+            padding:1em;
+            border: 1px solid black;
+            border-collapse: collapse;
+            height:1.2em;
+        }
+        td{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Ahmad's Lessons Statistics
+    </header>
+    <div id="day"></div>
+    <label>
+        Enter a value:&nbsp;
+        <input type="number" id="addValue" /><button onclick="update()">add value</button>
+    </label>
+    <footer>
+        Current Total:&nbsp;
+    </footer>
+    <table id="data">
+        <tr>
+            <th>Day</th>
+            <th>Amount</th>
+        </tr>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        //Declare Variables
+        let ahmadKey = localStorage["zaKey"];
+        let total = document.body.querySelector("footer");
+        let input = document.body.querySelector("#addValue");
+        let addButton = document.body.querySelector("button");
+        let dateDiv = document.body.querySelector("#day");
+        let updateVar, rowNode, cellNode, textNode, tablesData;
+        let date = new Date();
+        let avgCalc = 0;
+        dateDiv.innerHTML = "Day: " + date.getDate();
+
+        //Store the dates in localStorage
+        
+        let datesKey = localStorage["dateKey"];
+        let datesArr = JSON.parse(datesKey);
+        let table = document.body.querySelector("tbody");
+
+        //Update Values
+        function update() {
+            if (input.value != "") {
+                updateVar = parseInt(localStorage["zaKey"])
+                updateVar += parseInt(input.value);
+                updateVar = JSON.stringify(updateVar);
+                localStorage["zaKey"] = updateVar;
+                ahmadKey = localStorage["zaKey"]
+
+                datesArr[date.getDate()] += parseInt(input.value);
+                localStorage["dateKey"] = JSON.stringify(datesArr);
+                datesKey = localStorage["dateKey"];
+                tablesData[date.getDate() - 1].innerHTML = parseInt(datesArr[date.getDate()])
+
+                avgCalc = 0;
+                for (let date of datesArr) {
+                    if (date != 0) {
+                        avgCalc++;
+                    }
+                }
+                total.innerHTML = "Current Total:&nbsp;" + ahmadKey + "<br>Current Average per day: " + Math.round(ahmadKey / avgCalc);
+            } else {
+                alert("Please enter SOMETHING VALID!")
+            }
+        }
+
+        //initiate program flow
+
+        function main() {
+            //Dynamically create the table
+            for (let counter = 1; counter < 32; counter++) {
+                rowNode = document.createElement("tr");
+                cellNode = document.createElement("th");
+                textNode = document.createTextNode("Day " + JSON.stringify(counter));
+                table.appendChild(rowNode);
+                rowNode.appendChild(cellNode);
+                cellNode.appendChild(textNode);
+
+                cellNode = document.createElement("td");
+                textNode = document.createTextNode(0);
+                rowNode.appendChild(cellNode);
+                cellNode.appendChild(textNode);
+            }
+
+            tablesData = document.body.querySelectorAll("tbody tr td");
+
+            for (let counter = 1; counter < 31; counter++) {
+                tablesData[counter - 1].innerHTML = datesArr[counter]
+            }
+
+            for (let date of datesArr) {
+                if (date != 0) {
+                    avgCalc++;
+                }
+            }
+
+            //set the value of the total div
+            total.innerHTML += ahmadKey + "<br>Current Average per day: " + Math.round(ahmadKey / avgCalc);
+        }
+
+        main();
+    </script>
+</body>
+</html>
