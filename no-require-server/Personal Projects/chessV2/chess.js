@@ -7,16 +7,15 @@ canvas.style.marginLeft = 0.21 * screen.width + "px";
 let canvasMargin = 0.21 * screen.width;
 let CW = canvas.width;
 let CH = canvas.height;
+let playerCounter = 0;
 let squareArr = [];
 let pieceArr = [];
-let rookVertPositive = [];
-let rookVertNegative = [];
-let rookHorizPositive = [];
-let rookHorizNegative = [];
 let nameArr = ["rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"];
 let movesXArr = [8, 1, 8, 8, 1, 8, 1, 8];
 let movesYArr = [8, 3, 8, 8, 1, 8, 3, 8];
-let forCounter, forCounterTwo, rowSet, colSet, rowPos, colPos, clrSet, selectedPiece, selectedSquare, promotionPrompt, moveXInterval, moveYInterval, moveXDifference, moveYDifference;
+let forCounter, forCounterTwo, rowSet, colSet, rowPos, colPos, clrSet, selectedPiece, selectedSquare, promotionPrompt, moveXInterval, moveYInterval, moveXDifference, moveYDifference, kingPlayerOne, kingPlayerTwo, validChoice, interval, movingBoolean;
+let vertPositive, vertNegative, horizPositive, horizNegative, diagonalTopPositive, diagonalTopNegative, diagonalBottomPositive, diagonalBottomNegative;
+let possibleMovesPlayerOne, possibleMovesPlayerTwo, vertPositiveUpdate, vertNegativeUpdate, horizPositiveUpdate, horizNegativeUpdate, diagonalTopPositiveUpdate, diagonalTopNegativeUpdate, diagonalBottomPositiveUpdate, diagonalBottomNegativeUpdate;
 //declaring all classes
 class square {
     constructor(posX, posY, clr, col, row) {
@@ -43,7 +42,8 @@ class piece {
         this.name = name
         this.player = player
         this.clr = clr
-        this.pawnFirstMove = false
+        this.originPosX = this.posX
+        this.originPosY = this.posY
     }
 }
 //declaring all functions
@@ -107,7 +107,7 @@ function createPieces() {
     colPos = 0
 
     for (forCounter = 0; forCounter < 8; forCounter++) {
-        pieceArr.push(new piece(colPos, rowPos, colSet, rowSet, nameArr[forCounter], "playerOne", "red"))
+        pieceArr.push(new piece(colPos, rowPos, colSet, rowSet, nameArr[forCounter], "playerOne", "green"))
         colPos += CW / 8
         colSet++
     }
@@ -118,7 +118,7 @@ function createPieces() {
     colPos = 0
 
     for (forCounter = 0; forCounter < 8; forCounter++) {
-        pieceArr.push(new piece(colPos, rowPos, colSet, rowSet, "pawn", "playerOne", "red"))
+        pieceArr.push(new piece(colPos, rowPos, colSet, rowSet, "pawn", "playerOne", "green"))
         colPos += CW / 8
         colSet++
     }
@@ -168,7 +168,7 @@ function determineSelected(xClick, yClick) {
     for (let piece of pieceArr) {
         if (xClick > piece.posX && xClick < piece.posX + piece.width) {
             if (yClick > piece.posY && yClick < piece.posY + piece.height) {
-                selectedPiece = piece
+                selectedPiece = pieceArr.indexOf(piece)
             }
         }
     }
@@ -182,302 +182,234 @@ function determineSelected(xClick, yClick) {
     for (let piece of pieceArr) {
         if (piece.posX == selectedSquare.posX) {
             if (piece.posY == selectedSquare.posY) {
-                determineMoves(selectedSquare, selectedPiece)
+                determineMoves(selectedSquare, pieceArr[selectedPiece])
             }
         }
     }
 
 }
-function rookMoves(squarePar, piecePar) {
-    rookVertPositive = [];
-    rookVertNegative = [];
-    rookHorizPositive = [];
-    rookHorizNegative = [];
+function rookMoves(squarePar, piecePar, player) {
+    vertPositive = [];
+    vertNegative = [];
+    horizPositive = [];
+    horizNegative = [];
 
     for (let square of squareArr) {
         if (square.row == squarePar.row) {
             if (square.col > squarePar.col) {
-                rookHorizPositive.push(square)
+                horizPositive.push(square)
             } else if (square.col < squarePar.col) {
-                rookHorizNegative.unshift(square)
+                horizNegative.unshift(square)
             }
         } else if (square.col == squarePar.col) {
             if (square.row > squarePar.row) {
-                rookVertPositive.push(square)
+                vertPositive.push(square)
             } else if (square.row < squarePar.row) {
-                rookVertNegative.unshift(square)
+                vertNegative.unshift(square)
             }
         }
     }
+    for (let square of vertPositive) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break;
+        } else {
+            square.clr = "blue"
+        }
+    }
+    for (let square of vertNegative) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break;
+        } else {
+            square.clr = "blue"
+        }
+    }
+    for (let square of horizPositive) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break;
+        } else {
+            square.clr = "blue"
+        }
+    }
+    for (let square of horizNegative) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break;
+        } else {
+            square.clr = "blue"
+        }
+    }
+}
 
+function knightMoves(squarePar, piecePar, player) {
+    for (let square of squareArr) {
+        if ((square.row == squarePar.row + 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row + 2 && square.col == squarePar.col - 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col - 1)) {
+            if (square.hasPiece) {
+                if (square.presentPiece.player == player) {
+                    square.clr = "blue"
+                }
+            } else {
+                square.clr = "blue"
+            }
+        } else if ((square.col == squarePar.col + 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col + 2 && square.row == squarePar.row - 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row - 1)) {
+            if (square.hasPiece) {
+                if (square.presentPiece.player == player) {
+                    square.clr = "blue"
+                }
+            } else {
+                square.clr = "blue"
+            }
+        }
+    }
+}
+
+function bishopMoves(squarePar, piecePar, player) {
+    diagonalBottomPositive = []
+    diagonalBottomNegative = []
+    diagonalTopPositive = []
+    diagonalTopNegative = []
+    for (forCounter = 1; forCounter < 8; forCounter++) {
+        for (let square of squareArr) {
+            if (square.row == squarePar.row + forCounter && square.col == squarePar.col + forCounter) {
+                diagonalBottomPositive.push(square)
+            } else if (square.row == squarePar.row + forCounter && square.col == squarePar.col - forCounter) {
+                diagonalBottomNegative.push(square)
+            } else if (square.row == squarePar.row - forCounter && square.col == squarePar.col + forCounter) {
+                diagonalTopPositive.push(square)
+            } else if (square.row == squarePar.row - forCounter && square.col == squarePar.col - forCounter) {
+                diagonalTopNegative.push(square)
+            }
+        }
+    }
+    for (let square of diagonalBottomPositive) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break
+        } else {
+            square.clr = "blue"
+        }
+    }
+    for (let square of diagonalBottomNegative) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break
+        } else {
+            square.clr = "blue"
+        }
+    }
+    for (let square of diagonalTopPositive) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break
+        } else {
+            square.clr = "blue"
+        }
+    }
+    for (let square of diagonalTopNegative) {
+        if (square.hasPiece) {
+            if (square.presentPiece.player == player) {
+                square.clr = "blue"
+            }
+            break
+        } else {
+            square.clr = "blue"
+        }
+    }
+}
+
+function queenMoves(squarePar, piecePar, player) {
+    rookMoves(squarePar, piecePar, player)
+    bishopMoves(squarePar, piecePar, player)
+}
+
+function kingMoves(squarePar, piecePar, player) {
     if (piecePar.player == "playerOne") {
-        for (let square of rookVertPositive) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerTwo") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-        for (let square of rookVertNegative) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerTwo") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-        for (let square of rookHorizPositive) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerTwo") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-        for (let square of rookHorizNegative) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerTwo") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-    } else {
-        for (let square of rookVertPositive) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerOne") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-        for (let square of rookVertNegative) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerOne") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-        for (let square of rookHorizPositive) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerOne") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
-        for (let square of rookHorizNegative) {
-            if (square.hasPiece) {
-                if (square.presentPiece.player == "playerOne") {
-                    square.clr = "blue"
-                }
-                break;
-            } else {
-                square.clr = "blue"
-            }
-        }
+        if (kingPlayerOne)
     }
-}
-
-function knightMoves(squarePar, piecePar) {
     for (let square of squareArr) {
+        if (square.row == squarePar.row && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
+            if (square.hasPiece) {
+                if (square.presentPiece.player == player) {
+                    square.clr = "blue"
+                }
+            } else {
+                square.clr = "blue"
+            }
+        } else if (square.col == squarePar.col && (square.row == squarePar.row + 1 || square.row == squarePar.row - 1)) {
+            if (square.hasPiece) {
+                if (square.presentPiece.player == player) {
+                    square.clr = "blue"
+                }
+            } else {
+                square.clr = "blue"
+            }
+        } else if ((square.row == squarePar.row + 1 || square.row == squarePar.row - 1) && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
+            if (square.hasPiece) {
+                if (square.presentPiece.player == player) {
+                    square.clr = "blue"
+                }
+            } else {
+                square.clr = "blue"
+            }
+        }
         if (piecePar.player == "playerOne") {
-            if ((square.row == squarePar.row + 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row + 2 && square.col == squarePar.col - 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerTwo") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            } else if ((square.col == squarePar.col + 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col + 2 && square.row == squarePar.row - 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerTwo") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
+            if (possibleMovesPlayerTwo.includes(square)) {
+                square.clr = square.originClr
             }
         } else {
-            if ((square.row == squarePar.row + 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row + 2 && square.col == squarePar.col - 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerOne") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            } else if ((square.col == squarePar.col + 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col + 2 && square.row == squarePar.row - 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerOne") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
+            if (possibleMovesPlayerOne.includes(square)) {
+                square.clr = square.originClr
             }
         }
     }
 }
 
-function bishopMoves(squarePar, piecePar) {
-    console.log(piecePar.name)
-}
-
-function queenMoves(squarePar, piecePar) {
-    console.log(piecePar.name)
-}
-
-function kingMoves(squarePar, piecePar) {
-    for (let square of squareArr) {
-        if (piecePar.player == "playerOne") {
-            if (square.row == squarePar.row && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerTwo") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            } else if (square.col == squarePar.col && (square.row == squarePar.row + 1 || square.row == squarePar.row - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerTwo") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            } else if ((square.row == squarePar.row + 1 || square.row == squarePar.row - 1) && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerTwo") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            }
-        } else {
-            if (square.row == squarePar.row && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerOne") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            } else if (square.col == squarePar.col && (square.row == squarePar.row + 1 || square.row == squarePar.row - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerOne") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            } else if ((square.row == squarePar.row + 1 || square.row == squarePar.row - 1) && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
-                if (square.hasPiece) {
-                    if (square.presentPiece.player == "playerOne") {
-                        square.clr = "blue"
-                    }
-                } else {
-                    square.clr = "blue"
-                }
-            }
-        }
-    }
-}
-
-function pawnMoves(squarePar, piecePar) {
+function pawnMoves(squarePar, piecePar, player, moveUpDown) {
     for (let square of squareArr) {
         if (square.col == squarePar.col) {
-            if (piecePar.player == "playerOne") {
-                if (square.row == squarePar.row + 1) {
-                    if (square.hasPiece) {
-                        square.clr = square.originClr
-                    } else {
-                        square.clr = "blue"
-                    }
-                } else if (piecePar.pawnFirstMove == false) {
-                    if (square.row == squarePar.row + 2) {
-                        if (square.hasPiece) {
-                            square.clr = square.originClr
-                        } else {
-                            square.clr = "blue"
-                        }
-                        pieceArr[pieceArr.indexOf(piecePar)].pawnFirstMove = true
-                    }
+            if (square.row == squarePar.row + moveUpDown) {
+                if (square.hasPiece) {
+                    square.clr = square.originClr
+                } else {
+                    square.clr = "blue"
                 }
-            } else {
-                if (square.row == squarePar.row - 1) {
+            } else if (piecePar.posX == piecePar.originPosX && piecePar.posY == piecePar.originPosY) {
+                if (square.row == squarePar.row + (moveUpDown * 2)) {
                     if (square.hasPiece) {
                         square.clr = square.originClr
                     } else {
                         square.clr = "blue"
-                    }
-                } else if (piecePar.pawnFirstMove == false) {
-                    if (square.row == squarePar.row - 2) {
-                        if (square.hasPiece) {
-                            square.clr = square.originClr
-                        } else {
-                            square.clr = "blue"
-                        }
-                        pieceArr[pieceArr.indexOf(piecePar)].pawnFirstMove = true
                     }
                 }
             }
         } else if (square.col == squarePar.col + 1 || square.col == squarePar.col - 1) {
-            if (piecePar.player == "playerOne") {
-                if (square.row == squarePar.row + 1) {
-                    if (square.hasPiece) {
-                        if (square.presentPiece.player == "playerOne") {
-                            square.clr = square.originClr
-                        } else {
-                            square.clr = "blue"
-                        }
-                    } else {
+            if (square.row == squarePar.row + moveUpDown) {
+                if (square.hasPiece) {
+                    if (square.presentPiece.player == player) {
                         square.clr = square.originClr
-                    }
-                }
-            } else {
-                if (square.row == squarePar.row - 1) {
-                    if (square.hasPiece) {
-                        if (square.presentPiece.player == "playerTwo") {
-                            square.clr = square.originClr
-                        } else {
-                            square.clr = "blue"
-                        }
                     } else {
-                        square.clr = square.originClr
+                        square.clr = "blue"
                     }
+                } else {
+                    square.clr = square.originClr
                 }
             }
-        }
-    }
-    if (piecePar.player == "playerOne") {
-        if (piecePar.row > 6) {
-            promotionPrompt = prompt("you have been promoted! Choose from the following ranks: Rook, Knight, Bishop, Queen.")
-            transformPawn(piecePar)
-        }
-    } else {
-        if (piecePar.row < 1) {
-            promotionPrompt = prompt("you have been promoted! Choose from the following ranks: Rook, Knight, Bishop, Queen.")
-            transformPawn(piecePar)
         }
     }
 }
@@ -485,41 +417,94 @@ function transformPawn(piecePar) {
     switch (promotionPrompt.toLowerCase()) {
         case "rook":
             pieceArr[pieceArr.indexOf(piecePar)].name = "rook"
+            validChoice = true
             break;
         case "knight":
             pieceArr[pieceArr.indexOf(piecePar)].name = "knight"
+            validChoice = true
             break;
         case "bishop":
             pieceArr[pieceArr.indexOf(piecePar)].name = "bishop"
+            validChoice = true
             break;
         case "queen":
             pieceArr[pieceArr.indexOf(piecePar)].name = "queen"
+            validChoice = true
+            break;
+        default:
+            validChoice = false
             break;
     } 
+}
+function promote(piece) {
+    if (piece.name == "pawn") {
+        if (piece.player == "playerOne") {
+            if (piece.row == 7) {
+                promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1.Queen, 2.Bishop, 3.Rook, 4.Knight")
+                transformPawn(piece)
+            }
+        } else {
+            if (piece.row == 0) {
+                promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1.Queen, 2.Bishop, 3.Rook, 4.Knight")
+                transformPawn(piece)
+            }
+        }
+    }
+    while (validChoice == false) {
+        promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1.Queen, 2.Bishop, 3.Rook, 4.Knight")
+        transformPawn(piece)
+    }
 }
 function determineMoves(squarePar, piecePar) {
     for (let square of squareArr) {
         square.clr = square.originClr
     }
-    switch (piecePar.name) {
-        case "rook":
-            rookMoves(squarePar, piecePar)
-            break;
-        case "knight":
-            knightMoves(squarePar, piecePar)
-            break;
-        case "bishop":
-            bishopMoves(squarePar, piecePar)
-            break;
-        case "queen":
-            queenMoves(squarePar, piecePar)
-            break;
-        case "king":
-            kingMoves(squarePar, piecePar)
-            break;
-        case "pawn":
-            pawnMoves(squarePar, piecePar)
-            break;
+    if (piecePar.player == "playerOne") {
+        if (playerCounter % 2 == 0) {
+            switch (piecePar.name) {
+                case "rook":
+                    rookMoves(squarePar, piecePar, "playerTwo")
+                    break;
+                case "knight":
+                    knightMoves(squarePar, piecePar, "playerTwo")
+                    break;
+                case "bishop":
+                    bishopMoves(squarePar, piecePar, "playerTwo")
+                    break;
+                case "queen":
+                    queenMoves(squarePar, piecePar, "playerTwo")
+                    break;
+                case "king":
+                    kingMoves(squarePar, piecePar, "playerTwo")
+                    break;
+                case "pawn":
+                    pawnMoves(squarePar, piecePar, "playerOne", 1)
+                    break;
+            }
+        }
+    } else {
+        if (playerCounter % 2 != 0) {
+            switch (piecePar.name) {
+                case "rook":
+                    rookMoves(squarePar, piecePar, "playerOne")
+                    break;
+                case "knight":
+                    knightMoves(squarePar, piecePar, "playerOne")
+                    break;
+                case "bishop":
+                    bishopMoves(squarePar, piecePar, "playerOne")
+                    break;
+                case "queen":
+                    queenMoves(squarePar, piecePar, "playerOne")
+                    break;
+                case "king":
+                    kingMoves(squarePar, piecePar, "playerOne")
+                    break;
+                case "pawn":
+                    pawnMoves(squarePar, piecePar, "playerTwo", -1)
+                    break;
+            }
+        }
     }
 }
 
@@ -531,12 +516,17 @@ function movePiece(xClick, yClick, piece) {
             }
         }
     }
+    clearInterval(interval)
     if (selectedSquare.clr == "blue") {
+        if (selectedSquare.presentPiece != null && selectedSquare.presentPiece.name == "king") {
+            selectedSquare.clr = "red"
+        } 
         if (piece.posX < selectedSquare.posX) {
             moveXDifference = (selectedSquare.posX - piece.posX) / 30
             moveXInterval = setInterval(function () {
                 if (piece.posX < selectedSquare.posX) {
                     piece.posX += moveXDifference
+                    movingBoolean = true
                 } else {
                     piece.posX = selectedSquare.posX
                     clearInterval(moveXInterval)
@@ -547,6 +537,7 @@ function movePiece(xClick, yClick, piece) {
             moveXInterval = setInterval(function () {
                 if (piece.posX > selectedSquare.posX) {
                     piece.posX -= moveXDifference
+                    movingBoolean = true
                 } else {
                     piece.posX = selectedSquare.posX
                     clearInterval(moveXInterval)
@@ -559,8 +550,12 @@ function movePiece(xClick, yClick, piece) {
             moveYInterval = setInterval(function () {
                 if (piece.posY < selectedSquare.posY) {
                     piece.posY += moveYDifference
+                    movingBoolean = true
                 } else {
                     piece.posY = selectedSquare.posY
+                    playerCounter++
+                    promote(piece)
+                    movingBoolean = false
                     clearInterval(moveYInterval)
                 }
             }, 16.6666666)
@@ -569,8 +564,12 @@ function movePiece(xClick, yClick, piece) {
             moveYInterval = setInterval(function () {
                 if (piece.posY > selectedSquare.posY) {
                     piece.posY -= moveYDifference
+                    movingBoolean = true
                 } else {
                     piece.posY = selectedSquare.posY
+                    playerCounter++
+                    promote(piece)
+                    movingBoolean = false
                     clearInterval(moveYInterval)
                 }
             }, 16.6666666)
@@ -578,11 +577,14 @@ function movePiece(xClick, yClick, piece) {
         if (selectedSquare.hasPiece) {
             pieceArr.splice(pieceArr.indexOf(selectedSquare.presentPiece), 1)
         }
+        while (movingBoolean == true) {
+
+        }
+        interval = setInterval(function () {
+            updateStates(); checkForCheck(); checkMate()
+        }, 1)
         piece.row = selectedSquare.row
         piece.col = selectedSquare.col
-    }
-    for (let square of squareArr) {
-        square.clr = square.originClr
     }
 }
 
@@ -593,8 +595,11 @@ function determine(e) {
 }
 
 function move(e) {
-    movePiece(e.clientX - canvasMargin, e.clientY, pieceArr[pieceArr.indexOf(selectedPiece)])
+    movePiece(e.clientX - canvasMargin, e.clientY, pieceArr[selectedPiece])
     canvas.addEventListener("click", determine)
+    for (let square of squareArr) {
+        square.clr = square.originClr
+    }
 }
 
 function updateStates() {
@@ -611,6 +616,205 @@ function updateStates() {
         }
     }
 }
+function updatePawn(squarePar, killNum, arr) {
+    for (let square of squareArr) {
+        if (square.row == squarePar.row + killNum) {
+            if (square.col == squarePar.col - 1 || square.col == squarePar.col + 1) {
+                if (arr.includes(square) == false) {
+                    arr.push(square)
+                }
+            }
+        }
+    }
+}
+function updateRook(squarePar, arr) {
+    vertPositiveUpdate = [];
+    vertNegativeUpdate = [];
+    horizPositiveUpdate = [];
+    horizNegativeUpdate = [];
+
+    for (let square of squareArr) {
+        if (square.row == squarePar.row) {
+            if (square.col > squarePar.col) {
+                horizPositiveUpdate.push(square)
+            } else if (square.col < squarePar.col) {
+                horizNegativeUpdate.unshift(square)
+            }
+        } else if (square.col == squarePar.col) {
+            if (square.row > squarePar.row) {
+                vertPositiveUpdate.push(square)
+            } else if (square.row < squarePar.row) {
+                vertNegativeUpdate.unshift(square)
+            }
+        }
+    }
+    for (let square of vertPositiveUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break;
+        } else {
+            arr.push(square)
+        }
+    }
+    for (let square of vertNegativeUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break;
+        } else {
+            arr.push(square)
+        }
+    }
+    for (let square of horizPositiveUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break;
+        } else {
+            arr.push(square)
+        }
+    }
+    for (let square of horizNegativeUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break;
+        } else {
+            arr.push(square)
+        }
+    }
+}
+function updateBishop(squarePar, arr) {
+    diagonalTopPositiveUpdate = []
+    diagonalTopNegativeUpdate = []
+    diagonalBottomPositiveUpdate = []
+    diagonalBottomNegativeUpdate = []
+    for (forCounter = 1; forCounter < 8; forCounter++) {
+        for (let square of squareArr) {
+            if (square.row == squarePar.row + forCounter && square.col == squarePar.col + forCounter) {
+                diagonalTopPositiveUpdate.push(square)
+            } else if (square.row == squarePar.row + forCounter && square.col == squarePar.col - forCounter) {
+                diagonalTopNegativeUpdate.push(square)
+            } else if (square.row == squarePar.row - forCounter && square.col == squarePar.col + forCounter) {
+                diagonalBottomPositiveUpdate.push(square)
+            } else if (square.row == squarePar.row - forCounter && square.col == squarePar.col - forCounter) {
+                diagonalBottomNegativeUpdate.push(square)
+            }
+        }
+    }
+    for (let square of diagonalTopPositiveUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break
+        } else {
+            arr.push(square)
+        }
+    }
+    for (let square of diagonalTopNegativeUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break
+        } else {
+            arr.push(square)
+        }
+    }
+    for (let square of diagonalBottomPositiveUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break
+        } else {
+            arr.push(square)
+        }
+    }
+    for (let square of diagonalBottomNegativeUpdate) {
+        if (square.hasPiece) {
+            arr.push(square)
+            break
+        } else {
+            arr.push(square)
+        }
+    }
+}
+function updateKnight(squarePar, arr) {
+    for (let square of squareArr) {
+        if ((square.row == squarePar.row + 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row + 2 && square.col == squarePar.col - 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col - 1)) {
+            if (square.hasPiece) {
+                arr.push(square)
+            } else {
+                arr.push(square)
+            }
+        } else if ((square.col == squarePar.col + 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col + 2 && square.row == squarePar.row - 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row - 1)) {
+            if (square.hasPiece) {
+                arr.push(square)
+            } else {
+                arr.push(square)
+            }
+        }
+    }
+}
+function updateQueen(squarePar, arr) {
+    updateBishop(squarePar, arr)
+    updateRook(squarePar, arr)
+}
+function checkForCheck() {
+    possibleMovesPlayerOne = []
+    possibleMovesPlayerTwo = []
+    for (let square of squareArr) {
+        if (square.presentPiece != null) {
+            if (square.presentPiece.player == "playerOne") {
+                switch (square.presentPiece.name) {
+                    case "pawn":
+                        updatePawn(square, 1, possibleMovesPlayerOne)
+                        break;
+                    case "rook":
+                        updateRook(square, possibleMovesPlayerOne)
+                        break;
+                    case "bishop":
+                        updateBishop(square, possibleMovesPlayerOne)
+                        break;
+                    case "knight":
+                        updateKnight(square, possibleMovesPlayerOne)
+                        break;
+                    case "queen":
+                        updateQueen(square, possibleMovesPlayerOne)
+                        break;
+                }
+            } else {
+                switch (square.presentPiece.name) {
+                    case "pawn":
+                        updatePawn(square, -1, possibleMovesPlayerTwo)
+                        break;
+                    case "rook":
+                        updateRook(square, possibleMovesPlayerTwo)
+                        break;
+                    case "bishop":
+                        updateBishop(square, possibleMovesPlayerTwo)
+                        break;
+                    case "knight":
+                        updateKnight(square, possibleMovesPlayerTwo)
+                        break;
+                    case "queen":
+                        updateQueen(square, possibleMovesPlayerTwo)
+                        break;
+                }
+            }
+        }
+    }
+}
+function checkMate() {
+    for (let square of squareArr) {
+        if (square.presentPiece != null && square.presentPiece.name == "king") {
+            if (square.presentPiece.player == "playerOne") {
+                kingPlayerOne = square
+            } else {
+                kingPlayerTwo = square
+            }
+        }
+    }
+    if (possibleMovesPlayerOne.includes(kingPlayerTwo)) {
+        squareArr[squareArr.indexOf(kingPlayerTwo)].clr = "red"
+    }
+    if (possibleMovesPlayerTwo.includes(kingPlayerOne)) {
+        squareArr[squareArr.indexOf(kingPlayerOne)].clr = "red"
+    }
+}
 //the mainLoop
 function mainLoop() {
     drawBoard()
@@ -621,5 +825,7 @@ function mainLoop() {
 createBoard()
 createPieces()
 mainLoop()
-setInterval(function() { updateStates() }, 1)
+interval = setInterval(function () {
+    updateStates(); checkForCheck(); checkMate()
+}, 1)
 canvas.addEventListener("click", determine)
