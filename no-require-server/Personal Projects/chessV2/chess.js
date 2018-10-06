@@ -13,7 +13,7 @@ let pieceArr = [];
 let nameArr = ["rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"];
 let movesXArr = [8, 1, 8, 8, 1, 8, 1, 8];
 let movesYArr = [8, 3, 8, 8, 1, 8, 3, 8];
-let forCounter, forCounterTwo, rowSet, colSet, rowPos, colPos, clrSet, selectedPiece, selectedSquare, promotionPrompt, moveXInterval, moveYInterval, moveXDifference, moveYDifference, kingPlayerOne, kingPlayerTwo, validChoice, interval, movingBoolean;
+let forCounter, forCounterTwo, forCounterThree, rowSet, colSet, rowPos, colPos, clrSet, selectedPiece, selectedSquare, promotionPrompt, moveXInterval, moveYInterval, moveXDifference, moveYDifference, kingPlayerOne, kingPlayerTwo, validChoice, interval, movingBoolean, mainAnimation, recentPosX, recentPosY, blueSquareArr, blueSquareInterval;
 let vertPositive, vertNegative, horizPositive, horizNegative, diagonalTopPositive, diagonalTopNegative, diagonalBottomPositive, diagonalBottomNegative;
 let possibleMovesPlayerOne, possibleMovesPlayerTwo, vertPositiveUpdate, vertNegativeUpdate, horizPositiveUpdate, horizNegativeUpdate, diagonalTopPositiveUpdate, diagonalTopNegativeUpdate, diagonalBottomPositiveUpdate, diagonalBottomNegativeUpdate;
 //declaring all classes
@@ -188,6 +188,7 @@ function determineSelected(xClick, yClick) {
     }
 
 }
+
 function rookMoves(squarePar, piecePar, player) {
     vertPositive = [];
     vertNegative = [];
@@ -339,9 +340,6 @@ function queenMoves(squarePar, piecePar, player) {
 }
 
 function kingMoves(squarePar, piecePar, player) {
-    if (piecePar.player == "playerOne") {
-        if (kingPlayerOne)
-    }
     for (let square of squareArr) {
         if (square.row == squarePar.row && (square.col == squarePar.col + 1 || square.col == squarePar.col - 1)) {
             if (square.hasPiece) {
@@ -412,7 +410,9 @@ function pawnMoves(squarePar, piecePar, player, moveUpDown) {
             }
         }
     }
+
 }
+
 function transformPawn(piecePar) {
     switch (promotionPrompt.toLowerCase()) {
         case "rook":
@@ -434,25 +434,86 @@ function transformPawn(piecePar) {
         default:
             validChoice = false
             break;
-    } 
+    }
 }
+
 function promote(piece) {
     if (piece.name == "pawn") {
         if (piece.player == "playerOne") {
             if (piece.row == 7) {
-                promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1.Queen, 2.Bishop, 3.Rook, 4.Knight")
+                promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1. Queen, 2. Bishop, 3. Rook, 4. Knight")
                 transformPawn(piece)
             }
         } else {
             if (piece.row == 0) {
-                promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1.Queen, 2.Bishop, 3.Rook, 4.Knight")
+                promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1. Queen, 2. Bishop, 3. Rook, 4. Knight")
                 transformPawn(piece)
             }
         }
     }
     while (validChoice == false) {
-        promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1.Queen, 2.Bishop, 3.Rook, 4.Knight")
+        promotionPrompt = prompt("You've been promoted! Choose from the following ranks: 1. Queen, 2. Bishop, 3. Rook, 4. Knight")
         transformPawn(piece)
+    }
+}
+function verifyForNoCheckBefore(piecePar) {
+    clearInterval(mainAnimation)
+    blueSquareArr = []
+    recentPosX = piecePar.posX
+    recentPosY = piecePar.posY
+    for (let square of squareArr) {
+        if (square.clr == "blue") {
+            blueSquareArr.push(square)
+        }
+    }
+    forCounterThree = 0
+    if (blueSquareArr.length != 1 && blueSquareArr.length != 0) {
+        blueSquareInterval = setInterval(function () {
+            if (forCounterThree < blueSquareArr.length - 1) {
+                piecePar.posX = blueSquareArr[forCounterThree].posX
+                piecePar.posY = blueSquareArr[forCounterThree].posY
+                setTimeout(function () {
+                    if (piecePar.player == "playerOne") {
+                        if (possibleMovesPlayerTwo.includes(kingPlayerOne)) {
+                            blueSquareArr[forCounterThree].clr = blueSquareArr[forCounterThree].originClr
+                        }
+                    } else {
+                        if (possibleMovesPlayerOne.includes(kingPlayerTwo)) {
+                            blueSquareArr[forCounterThree].clr = blueSquareArr[forCounterThree].originClr
+                        }
+                    }
+                }, 2.5)
+            } else {
+                piecePar.posX = recentPosX
+                piecePar.posY = recentPosY
+                clearInterval(blueSquareInterval)
+                mainAnimation = setInterval(function () {
+                    mainLoop()
+                }, 16.6666666666666)
+            }
+            forCounterThree++
+        }, 5)
+    } else {
+        piecePar.posX = blueSquareArr[0].posX
+        piecePar.posY = blueSquareArr[0].posY
+        setTimeout(function () {
+            if (piecePar.player == "playerOne") {
+                if (possibleMovesPlayerTwo.includes(kingPlayerOne)) {
+                    blueSquareArr[0].clr = blueSquareArr[0].originClr
+                }
+            } else {
+                if (possibleMovesPlayerOne.includes(kingPlayerTwo)) {
+                    blueSquareArr[0].clr = blueSquareArr[0].originClr
+                }
+            }
+        }, 10)
+        setTimeout(function () {
+            piecePar.posX = recentPosX
+            piecePar.posY = recentPosY
+            mainAnimation = setInterval(function () {
+                mainLoop()
+            }, 16.6666666666666)
+        }, 15)
     }
 }
 function determineMoves(squarePar, piecePar) {
@@ -506,6 +567,7 @@ function determineMoves(squarePar, piecePar) {
             }
         }
     }
+    verifyForNoCheckBefore(piecePar)
 }
 
 function movePiece(xClick, yClick, piece) {
@@ -516,14 +578,14 @@ function movePiece(xClick, yClick, piece) {
             }
         }
     }
-    clearInterval(interval)
     if (selectedSquare.clr == "blue") {
         if (selectedSquare.presentPiece != null && selectedSquare.presentPiece.name == "king") {
             selectedSquare.clr = "red"
-        } 
+        } else {
+        }
         if (piece.posX < selectedSquare.posX) {
             moveXDifference = (selectedSquare.posX - piece.posX) / 30
-            moveXInterval = setInterval(function () {
+            moveXInterval = setInterval(function() {
                 if (piece.posX < selectedSquare.posX) {
                     piece.posX += moveXDifference
                     movingBoolean = true
@@ -532,9 +594,9 @@ function movePiece(xClick, yClick, piece) {
                     clearInterval(moveXInterval)
                 }
             }, 16.6666666)
-        } else if (piece.posX > selectedSquare.posX){
+        } else if (piece.posX > selectedSquare.posX) {
             moveXDifference = (piece.posX - selectedSquare.posX) / 30
-            moveXInterval = setInterval(function () {
+            moveXInterval = setInterval(function() {
                 if (piece.posX > selectedSquare.posX) {
                     piece.posX -= moveXDifference
                     movingBoolean = true
@@ -547,7 +609,7 @@ function movePiece(xClick, yClick, piece) {
 
         if (piece.posY < selectedSquare.posY) {
             moveYDifference = (selectedSquare.posY - piece.posY) / 30
-            moveYInterval = setInterval(function () {
+            moveYInterval = setInterval(function() {
                 if (piece.posY < selectedSquare.posY) {
                     piece.posY += moveYDifference
                     movingBoolean = true
@@ -556,12 +618,15 @@ function movePiece(xClick, yClick, piece) {
                     playerCounter++
                     promote(piece)
                     movingBoolean = false
+                    for (let square of squareArr) {
+                        square.clr = square.originClr
+                    }
                     clearInterval(moveYInterval)
                 }
             }, 16.6666666)
         } else {
             moveYDifference = (piece.posY - selectedSquare.posY) / 30
-            moveYInterval = setInterval(function () {
+            moveYInterval = setInterval(function() {
                 if (piece.posY > selectedSquare.posY) {
                     piece.posY -= moveYDifference
                     movingBoolean = true
@@ -570,6 +635,9 @@ function movePiece(xClick, yClick, piece) {
                     playerCounter++
                     promote(piece)
                     movingBoolean = false
+                    for (let square of squareArr) {
+                        square.clr = square.originClr
+                    }
                     clearInterval(moveYInterval)
                 }
             }, 16.6666666)
@@ -577,12 +645,6 @@ function movePiece(xClick, yClick, piece) {
         if (selectedSquare.hasPiece) {
             pieceArr.splice(pieceArr.indexOf(selectedSquare.presentPiece), 1)
         }
-        while (movingBoolean == true) {
-
-        }
-        interval = setInterval(function () {
-            updateStates(); checkForCheck(); checkMate()
-        }, 1)
         piece.row = selectedSquare.row
         piece.col = selectedSquare.col
     }
@@ -616,6 +678,7 @@ function updateStates() {
         }
     }
 }
+
 function updatePawn(squarePar, killNum, arr) {
     for (let square of squareArr) {
         if (square.row == squarePar.row + killNum) {
@@ -627,6 +690,7 @@ function updatePawn(squarePar, killNum, arr) {
         }
     }
 }
+
 function updateRook(squarePar, arr) {
     vertPositiveUpdate = [];
     vertNegativeUpdate = [];
@@ -653,34 +717,49 @@ function updateRook(squarePar, arr) {
             arr.push(square)
             break;
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
     for (let square of vertNegativeUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break;
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
     for (let square of horizPositiveUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break;
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
     for (let square of horizNegativeUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break;
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
 }
+
 function updateBishop(squarePar, arr) {
     diagonalTopPositiveUpdate = []
     diagonalTopNegativeUpdate = []
@@ -701,58 +780,85 @@ function updateBishop(squarePar, arr) {
     }
     for (let square of diagonalTopPositiveUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
     for (let square of diagonalTopNegativeUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
     for (let square of diagonalBottomPositiveUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
     for (let square of diagonalBottomNegativeUpdate) {
         if (square.hasPiece) {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
             break
         } else {
-            arr.push(square)
+            if (arr.includes(square) == false) {
+                arr.push(square)
+            }
         }
     }
 }
+
 function updateKnight(squarePar, arr) {
     for (let square of squareArr) {
         if ((square.row == squarePar.row + 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col + 1) || (square.row == squarePar.row + 2 && square.col == squarePar.col - 1) || (square.row == squarePar.row - 2 && square.col == squarePar.col - 1)) {
             if (square.hasPiece) {
-                arr.push(square)
+                if (arr.includes(square) == false) {
+                    arr.push(square)
+                }
             } else {
-                arr.push(square)
+                if (arr.includes(square) == false) {
+                    arr.push(square)
+                }
             }
         } else if ((square.col == squarePar.col + 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row + 1) || (square.col == squarePar.col + 2 && square.row == squarePar.row - 1) || (square.col == squarePar.col - 2 && square.row == squarePar.row - 1)) {
             if (square.hasPiece) {
-                arr.push(square)
+                if (arr.includes(square) == false) {
+                    arr.push(square)
+                }
             } else {
-                arr.push(square)
+                if (arr.includes(square) == false) {
+                    arr.push(square)
+                }
             }
         }
     }
 }
+
 function updateQueen(squarePar, arr) {
     updateBishop(squarePar, arr)
     updateRook(squarePar, arr)
 }
+
 function checkForCheck() {
     possibleMovesPlayerOne = []
     possibleMovesPlayerTwo = []
@@ -798,6 +904,7 @@ function checkForCheck() {
         }
     }
 }
+
 function checkMate() {
     for (let square of squareArr) {
         if (square.presentPiece != null && square.presentPiece.name == "king") {
@@ -808,24 +915,37 @@ function checkMate() {
             }
         }
     }
-    if (possibleMovesPlayerOne.includes(kingPlayerTwo)) {
-        squareArr[squareArr.indexOf(kingPlayerTwo)].clr = "red"
-    }
     if (possibleMovesPlayerTwo.includes(kingPlayerOne)) {
-        squareArr[squareArr.indexOf(kingPlayerOne)].clr = "red"
+        kingPlayerOne.clr = "red"
+    } else {
+        kingPlayerOne.clr = kingPlayerOne.originClr
+    }
+    if (possibleMovesPlayerOne.includes(kingPlayerTwo)) {
+        kingPlayerTwo.clr = "red"
+    } else {
+        kingPlayerTwo.clr = kingPlayerTwo.originClr
     }
 }
 //the mainLoop
 function mainLoop() {
     drawBoard()
     drawPieces()
-    requestAnimationFrame(mainLoop)
 }
 //start of program flow
 createBoard()
 createPieces()
-mainLoop()
-interval = setInterval(function () {
-    updateStates(); checkForCheck(); checkMate()
+mainAnimation = setInterval(function () {
+    mainLoop()
+}, 16.6666666666666)
+interval = setInterval(function() {
+    updateStates();
+    checkForCheck();
+    checkMate();
+    if (possibleMovesPlayerOne.includes(kingPlayerTwo)) {
+        kingPlayerTwo.clr = "red"
+    }
+    if (possibleMovesPlayerTwo.includes(kingPlayerOne)) {
+        kingPlayerOne.clr = "red"
+    }
 }, 1)
 canvas.addEventListener("click", determine)
