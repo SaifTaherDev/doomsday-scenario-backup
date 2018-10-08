@@ -14,12 +14,80 @@
         canvas {
             margin-left: 310px;
             border: 1px solid black;
+            position:absolute;
+        }
+        img{
+            display:none;
+        }
+        .dead img{
+            display:inline;
+            width:5em;
+            height:7.5em;
+        }
+        .dead {
+            height: 50em;
+            width: 20em;
+            display: flex;
+            flex-direction:column;
+            top: 7.75em;
+            background: lightgrey;
+            border:2.5px solid black;
+            border-radius: 0.5em;
+        }
+        #deadPiecesTwo, #scoreTwo {
+            right: 0;
+        }
+        #scoreTwo{
+            bottom:2.5em;
+        }
+        #scoreOne, #scoreTwo, .dead {
+            position: absolute;
+            text-align: center;
+            font-family: Cambria;
+            width: 20em;
         }
     </style>
 </head>
 
 <body>
+    <div id="playerOneImg">
+        <img src="images\playerOne\Rook.png" />
+        <img src="images\playerOne\Knight.png" />
+        <img src="images\playerOne\Bishop.png" />
+        <img src="images\playerOne\Queen.png" />
+        <img src="images\playerOne\King.png" />
+        <img src="images\playerOne\Bishop.png" />
+        <img src="images\playerOne\Knight.png" />
+        <img src="images\playerOne\Rook.png" />
+    </div>
+    <div id="playerTwoImg">
+        <img src="images\playerTwo\Rook.png" />
+        <img src="images\playerTwo\Knight.png" />
+        <img src="images\playerTwo\Bishop.png" />
+        <img src="images\playerTwo\Queen.png" />
+        <img src="images\playerTwo\King.png" />
+        <img src="images\playerTwo\Bishop.png" />
+        <img src="images\playerTwo\Knight.png" />
+        <img src="images\playerTwo\Rook.png" />
+    </div>
+    <img id="pawnPlayerOne" src="images/playerOne/Pawn.png" />
+    <img id="pawnPlayerTwo" src="images/playerTwo/Pawn.png" />
+    <div id="scoreOne">
+        <h1>Player One Score: 0</h1>
+    </div>
+    <div id="scoreTwo">
+        <h1>Player Two Score: 0</h1>
+    </div>
+    <div class="dead" id="deadPiecesOne">
+        <h1>Taken-Out Pieces</h1>
+        <div class="imgContainer"></div>
+    </div>
+    <div class="dead" id="deadPiecesTwo">
+        <h1>Taken-Out Pieces</h1>
+        <div class="imgContainer"></div>
+    </div>
     <canvas></canvas>
+    <script src="howler/howler.min.js"></script>
     <script src="chess.js"></script>
 </body>
 
