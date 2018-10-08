@@ -1,0 +1,76 @@
+﻿#navbar_bigscreens, #navbar_smallscreens {
+    background: black;
+    color: white;
+}
+
+#navbar_bigscreens span, #navbar_smallscreens .row span {
+    font-size: 1em;
+    text-align: center;
+    padding:0.1em;
+    border:1px solid white;
+    border-radius:5em;  
+    transition-duration:0.5s;
+    cursor:pointer;
+}
+#navbar_bigscreens span:hover, #navbar_smallscreens .row span:hover {
+    border-color:black;
+    background:white;
+    color:black;
+    transition-duration:1s;
+}
+
+#navbar_smallscreens .row {
+    width: 100vw;
+    margin: 0px auto;
+    padding: 0;
+}
+#navbar_smallscreens{
+    display:flex;
+    align-items:center;
+}
+#bridgeLogo {
+    width: 8em;
+}
+.navbar-brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right:0;
+}
+#bridgeLogo_small {
+    width: 75%;
+}
+#customerImage {
+    width: 15vw;
+    min-width: 10em;
+    display: block;
+    margin: 0px auto;
+}
+
+#customerImage, #customerQuote {
+    transition-duration: 1s;
+}
+
+#customerSlideshow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30em;
+}
+
+#customersTitle {
+    text-align: center;
+}
+#customerQuote{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+
+#customerQuote p {
+    font-style: italic;
+    font-size: 1.5em;
+    margin: 0px auto;
+    display: block;
+}

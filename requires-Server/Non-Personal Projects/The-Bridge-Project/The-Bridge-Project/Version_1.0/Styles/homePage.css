@@ -1,0 +1,275 @@
+﻿@font-face {
+    font-family: 'OstrichSans-Black';
+    src: url('../Fonts/OstrichSans-Black.otf') format('opentype');
+}
+
+@keyframes floatImg {
+    0% {
+        bottom: 1em;
+    }
+
+    50% {
+        bottom: 0em;
+    }
+
+    100% {
+        bottom: 1em;
+    }
+}
+
+nav {
+    background: hsl(100, 0%, 20%);
+    transition-duration: 0.5s;
+}
+
+    nav img {
+        width: 6em;
+    }
+
+    nav img, nav span {
+        cursor: pointer;
+    }
+
+.navButtons {
+    height: 100%;
+    border: 5px solid transparent;
+}
+
+    .navButtons:hover {
+        border-top-color: #954FA5;
+    }
+
+.navButtons, .signIn {
+    display: inline-block;
+    padding: 1em;
+    margin: 0.25em;
+    margin-top: 0;
+    color: white;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.signIn {
+    border-radius: 5em;
+    background: white;
+    text-align: center;
+    width: 7em;
+    height: 1em;
+    line-height: 0;
+    color: #954FA5;
+    cursor:pointer;
+}
+
+#smallNavBar {
+    background: hsl(100, 0%, 20%);
+    margin-right:0;
+}
+
+    #smallNavBar img {
+        width: 35%;
+        min-width:5em;
+    }
+
+    #smallNavBar .navbar-header {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    header {
+        height: 30em;
+    }
+#smallNavBar .container-fluid .signIn {
+    float: right;
+    width: 100%;
+    min-width: 5em;
+}
+nav ul {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 0 1px 0 #FFF;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    min-width:2em;
+}
+
+nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-width: 25%;
+}
+
+nav a {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+nav li ul {
+    padding: 0.25em;
+    padding-left: 0.35em;
+    float: left;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 50px;
+    border-radius: 0.25em;
+    visibility: hidden;
+    z-index: 1;
+    width: 150px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+nav li ul li {
+    float: none;
+    width: 100%;
+}
+
+.cf:after, .cf:before {
+    content: "";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    zoom: 1;
+}
+#smoothDropDown {
+    background: hsl(100, 0%, 20%);
+}
+#colorfulCoverThingy {
+    background: linear-gradient(0deg, #4A528E, #954FA5 80%);
+    display: flex;
+    align-items: flex-end;
+}
+
+#colorfulCoverThingy, #headerMarketing {
+    height: 100%;
+}
+
+#headerMarketing {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #headerMarketing p {
+        font-family: OstrichSans-Black;
+        font-size: 2.5em;
+        color: white;
+    }
+
+    #headerMarketing img {
+        width: 25em;
+        animation-name: floatImg;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        position: relative;
+    }
+
+#marketingContainer {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+#textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+#realMarketing {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5em;
+    height: 35em;
+    background: hsl(100, 0%, 20%);
+    color: white;
+}
+
+#imgOne {
+    width: 27.5em;
+}
+
+#imgTwo {
+    width: 43em;
+}
+
+#imgThree {
+    width: 27.5em;
+}
+
+#imgFour {
+    width: 35em;
+}
+
+#imgFive {
+    width: 28em;
+}
+
+#marketImgContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#marketHeading, .whoAreWe h2 {
+    font-family: OstrichSans-Black;
+}
+
+.whoAreWe {
+    background: #4A528E;
+    color: white;
+    margin-bottom: 0;
+}
+
+#cairoContainer {
+    height: 20em;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    background: hsl(100, 0%, 20%);
+    color: white;
+}
+
+#linksContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+    #linksContainer > div {
+        width: 33.3333333%;
+    }
+
+#logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #logoContainer img {
+        width: 50%;
+    }
+#svgContainer {
+    width: 2em;
+    cursor:pointer;
+}
+
+    #svgContainer svg {
+        width: 100%;
+        cursor: pointer;
+    }
