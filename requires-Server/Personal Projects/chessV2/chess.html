@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>chessV2</title>
+    <title>S-Chess</title>
     <style>
         body {
             margin: 0px;
@@ -12,7 +12,6 @@
         }
         
         canvas {
-            margin-left: 310px;
             border: 1px solid black;
             position:absolute;
         }
@@ -25,11 +24,10 @@
             height:7.5em;
         }
         .dead {
-            height: 50em;
-            width: 20em;
+            height: 75vh;
             display: flex;
             flex-direction:column;
-            top: 7.75em;
+            top: 12vh;
             background: lightgrey;
             border:2.5px solid black;
             border-radius: 0.5em;
@@ -37,14 +35,50 @@
         #deadPiecesTwo, #scoreTwo {
             right: 0;
         }
-        #scoreTwo{
-            bottom:2.5em;
+        #scoreOne{
+            top: 2.5vh;
         }
-        #scoreOne, #scoreTwo, .dead {
+        #scoreTwo {
+            bottom: 2.5vh;
+        }
+        #scoreOne, #scoreTwo, .dead, .castleDiv {
             position: absolute;
             text-align: center;
             font-family: Cambria;
-            width: 20em;
+        }
+        #scoreOne, #scoreTwo, .dead {
+            width: 18.4vw;
+        }
+        .castleDiv {
+            height: 5.25vh;
+            width:18vw;
+            border-radius: 0.5em;
+            background: grey;
+            line-height: 5.25vh;
+            font-weight:bold;
+            font-size:1.5em;
+            cursor:pointer;
+            transition-duration:0.5s;
+        }
+        .castleDiv:hover{
+            background: lightgrey;
+        }
+        #castleOneKing {
+            bottom:6.25vh;
+            left:0.25vw;
+        }
+        #castleOneQueen {
+            bottom: 0.5vh;
+            left: 0.25vw;
+        }
+        #castleTwoKing {
+            top: 6.25vh;
+            right: 0.25vw;
+        }
+
+        #castleTwoQueen {
+            top: 0.5vh;
+            right: 0.25vw;
         }
     </style>
 </head>
@@ -72,6 +106,12 @@
     </div>
     <img id="pawnPlayerOne" src="images/playerOne/Pawn.png" />
     <img id="pawnPlayerTwo" src="images/playerTwo/Pawn.png" />
+
+    <div class="castleDiv" id="castleOneKing" onclick="determinePlayerKingCastle()">Do a King-Castle</div>
+    <div class="castleDiv" id="castleOneQueen" onclick="determinePlayerQueenCastle()">Do a Queen-Castle</div>
+    <div class="castleDiv" id="castleTwoKing" onclick="determinePlayerKingCastle()">Do a King-Castle</div>
+    <div class="castleDiv" id="castleTwoQueen" onclick="determinePlayerQueenCastle()">Do a Queen-Castle</div>
+
     <div id="scoreOne">
         <h1>Player One Score: 0</h1>
     </div>
@@ -87,8 +127,20 @@
         <div class="imgContainer"></div>
     </div>
     <canvas></canvas>
-    <script src="howler/howler.min.js"></script>
-    <script src="chess.js"></script>
+
+
+    <script src="scripts/howler.min.js"></script>
+    <script src="scripts/init.js"></script>
+    <script src="scripts/create.js"></script>
+    <script src="scripts/draw.js"></script>
+    <script src="scripts/moves.js"></script>
+    <script src="scripts/motion.js"></script>
+    <script src="scripts/transform.js"></script>
+    <script src="scripts/update_states.js"></script>
+    <script src="scripts/transform.js"></script>
+    <script src="scripts/checkmate.js"></script>
+    <script src="scripts/castle.js"></script>
+    <script src="scripts/main_loop.js"></script>
 </body>
 
 </html>
