@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>TheLevelsInterection</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            height: 100%;
+            background-color: #003366;
+            z-index: 0;
+        }
+
+        .PageItem {
+            position: absolute;
+            z-index: 1;
+        }
+        .Level {
+            width: 60%;
+            font-family: Calibri;
+            font-size: 3em;
+            background-color: black;
+            border-radius: 1em;
+            padding: 0.5em;
+            margin-top:3em;
+        }
+        .containerThingy{
+            width:62%;
+            text-align:center;
+        }
+        #ContainerOne {
+            color: green;
+            transition: color linear;
+            transition-duration: 0.5s;
+        }
+
+        #ConatinerTwo {
+            margin-top: 9em;
+            color: orange;
+            transition: color linear;
+            transition-duration: 0.5s;
+        }
+        #ConatinerThree {
+            margin-top: 18em;
+            color: red;
+            transition: color linear;
+            transition-duration: 0.5s;
+        }
+        #ContainerOne:hover{
+            color: black;
+            transition: color linear;
+            transition-duration: 0.5s;
+        }
+
+        #ConatinerTwo:hover {
+            color: black;
+            transition: color linear;
+            transition-duration: 0.5s;
+        }
+
+        #ConatinerThree:hover {
+            color: black;
+            transition: color linear;
+            transition-duration: 0.5s;
+        }
+        #LvOne, #LvTwo, #LvThree {
+            background-color: black;
+            transition: background-color linear;
+            transition-duration: 0.5s;
+        }
+        #LvOne:hover {
+            background-color: green;
+            transition: background-color linear;
+            transition-duration: 0.5s;
+        }
+
+        #LvTwo:hover {
+            background-color: orange;
+            transition: background-color linear;
+            transition-duration: 0.5s;
+        }
+
+        #LvThree:hover {
+            background-color: red;
+            transition: background-color linear;
+            transition-duration: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <a href="Levels\Level1\Ques1\QuesOne.html">
+        <div id="ContainerOne" class="containers PageItem containerThingy">
+            <span id="LvOne" class="PageItem Level">
+                Level.1 - Beginner
+            </span>
+        </div>
+    </a>
+    <a href="Levels\Level2\Ques1\QuesOne.html">
+        <div id="ConatinerTwo" class="containers PageItem containerThingy">
+            <span id="LvTwo" class="PageItem Level">
+                &nbsp;&nbsp;Level.2 - Advanced
+            </span>
+        </div>
+    </a>
+    <a href="Levels\Level3\Ques1\QuesOne.html">
+        <div id="ConatinerThree" class="containers PageItem containerThingy">
+
+            <span id="LvThree" class="PageItem Level">
+                Level.3 - Expert&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+        </div>
+    </a>
+    <!--Start of Particles.js-->
+    <div id="particles-js"></div>
+    <script type="text/javascript" src="Levels\Level1\Ques1\Ques2\Ques3\Ques4\Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\particlesNANI.js"></script>
+    <script type="text/javascript" src="Levels\Level1\Ques1\Ques2\Ques3\Ques4\Ques5\Ques6\Ques7\Ques8\Ques9\Ques10\appNANI.js"></script>
+</body>
+</html>

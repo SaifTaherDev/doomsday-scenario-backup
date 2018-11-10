@@ -1,0 +1,82 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+
+}
+#particles-js {
+    height: 100%;
+    background-color: #252020;
+}
+.PageItems {
+    z-index: 0;
+    position: absolute;
+}
+#title {
+    width:100%;
+    color: white;
+    margin-top: 3em;
+    text-align: center;
+    }
+#TitlePara {
+    font-family: Calibri;
+    font-size: 2em;
+    border-radius: 1em;
+    padding: 0.5em;
+    opacity: 0;
+    background-color: black;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    -ms-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+canvas {
+    z-index: -1;
+}
+#Instructions{
+    width:50%;
+    text-align:center;
+    padding: 0.5em;
+    color: white;
+    margin-top: 13em;
+    
+}
+#InstructionsPara {
+    width: 100%;
+    font-family: Calibri;
+    font-size: 1.5em;
+    background-color: black;
+    border-radius: 1em;
+    padding: 0.5em;
+    opacity: 0;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    -ms-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+#StartButton {
+    width: 100%; 
+    top:35em;
+    text-align:center;
+}
+#StartPara {
+    opacity:0;
+    font-family: Calibri;
+    font-size: 1.5em;
+    background-color: black;
+    border-radius: 1em;
+    margin-top: 20em;
+    padding: 0.5em;
+    color:white;
+    transition: background-color color linear ;
+    transition-duration:1s;
+}
+#StartPara:hover{
+    background-color: white;
+    color:black;
+    transition: background-color color linear;
+    transition-duration:1s;
+}

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="Pong.css">
+</head>
+<body>
+    <canvas id="GameCanvas">No support for you, scrub!</canvas>
+    <!--Start of the script-->
+    <script src="howler.js/dist/howler.js"></script>
+    <script>
+        var GameCanvas = document.body.querySelector('#GameCanvas');
+        var ctx = GameCanvas.getContext("2d");
+        var WindowWidth = window.innerWidth;
+        var WindowHeight = window.innerHeight;
+
+        var speedX = 10;
+        var speedY = 10;
+
+        var playerOne = {
+            x1: (0.02 * WindowWidth),
+            y1: (0.45 * WindowHeight),
+            x2: 30,
+            y2: 100
+        }
+        var playerTwo = {
+            x1: (0.96 * WindowWidth),
+            y1: (0.45 * WindowHeight),
+            x2: 30,
+            y2: 100
+        }
+        var LineOne = {
+            y1: 20
+        }
+        var LineTwo = {
+            y1: 650
+        }
+        var Ball = {
+            x1: 782.5 + speedX,
+            y1: 400 + speedY,
+            x2: 40,
+            y2: 40,
+        }
+
+        var sound = new Howl({
+            src: ["beep.mp3"]
+        });
+
+        GameCanvas.width = WindowWidth;
+        GameCanvas.height = WindowHeight;
+
+        window.onload = function initial() {
+
+            window.addEventListener('resize', function (evt) {
+                GameCanvas.width = window.innerWidth;
+                GameCanvas.height = window.innerHeight;
+                playerTwo.x1 = (0.96 * window.innerWidth);
+                DrawDashesWhileLoop();
+            });
+
+            DrawPlayers();
+            DrawDashesWhileLoop();
+            DrawBall();
+        }
+
+        function DrawDashesWhileLoop() {
+            var y = 70;
+            while (y < 730) {
+                y += 30;
+                ctx.save();
+                ctx.fillStyle = 'white';
+                ctx.fillRect(GameCanvas.width / 2, y, 5, 15);
+                ctx.restore();
+            }
+        }
+
+        function DrawPlayers() {
+            ctx.save();
+            ctx.fillStyle = "white";
+            ctx.fillRect(playerOne.x1, playerOne.y1, playerOne.x2, playerOne.y2);
+            ctx.fillRect(playerTwo.x1, playerTwo.y1, playerTwo.x2, playerTwo.y2);
+            ctx.restore();
+            requestAnimationFrame(DrawPlayers);
+        }
+        window.addEventListener("keydown", movePlayer, false);
+
+        function movePlayer(e) {
+
+            ctx.clearRect(0, 0, GameCanvas.width, GameCanvas.height);
+
+            if (e.keyCode == 83) {
+                console.log('S pressed!');
+                playerOne.y1 += 20;
+            }
+            if (e.keyCode == 87) {
+                console.log('W pressed!');
+                playerOne.y1 -= 20;
+            }
+            if (e.keyCode == 38) {
+                console.log('Top arrow pressed!');
+                playerTwo.y1 -= 20;
+            }
+            if (e.keyCode == 40) {
+                console.log('Bottom arrow pressed!');
+                playerTwo.y1 += 20;
+            }
+            if (e.keyCode > 0) {
+                DrawDashesWhileLoop();
+                BarCollision(playerOne);
+                BarCollision(playerTwo);
+            }
+        }
+        function BarCollision(player) {
+            if (player.y1 < 0) {
+                console.log("AAAAAAAA");
+                player.y1 = 0;
+            }
+            if (player.y1 > 800) {
+                console.log("AAAAAAAA");
+                player.y1 = 800;
+            }
+        }
+        function DrawBall() {
+            ctx.clearRect(Ball.x1 - 1, Ball.y1 - 1, Ball.x2 + 2, Ball.y2 + 2);
+            console.log()
+            Ball.x1 += speedX;
+            Ball.y1 += -speedY;
+            ctx.save();
+            ctx.fillStyle = "white";
+            ctx.fillRect(Ball.x1, Ball.y1, Ball.x2, Ball.y2);
+            ctx.restore();
+            DrawDashesWhileLoop();
+            requestAnimationFrame(DrawBall);
+            ballCollision();
+            PlayerOneBounce();
+            PlayerTwoBounce();
+            PlayerOneScore();
+            PlayerTwoScore();
+        }
+        function ballCollision() {
+            if (Ball.y1 < 6 || Ball.y1 > 850) {
+                console.log("B-B-B-BOUNCE!");
+                speedY = -speedY;
+            }
+        }
+        function PlayerOneBounce() {
+            if (Ball.y1 > (playerOne.y1 - 40) && Ball.y1 < (playerOne.y1 + 100) && Ball.x1 < (0.02 * WindowWidth) + 40) {
+                console.log("AAAAAAAYYYYYYYY!")
+                speedX = 10;
+                sound.play();
+            }
+        }
+        function PlayerTwoBounce() {
+            if (Ball.y1 > (playerTwo.y1 - 40) && Ball.y1 < (playerTwo.y1 + 100) && (Ball.x1 + 40) > (0.96 * WindowWidth) && (Ball.x1 + 40) < (0.98 * WindowWidth)) {
+                console.log("AAAAAAAYYYYYYYY!")
+                speedX = -10;
+                sound.play();
+            }
+        }
+        function PlayerOneScore() {
+            if (Ball.x1 < playerOne.x1 - 30) {
+                location.reload();
+            }
+        }
+        function PlayerTwoScore() {
+            if (Ball.x1 > playerTwo.x1 + 100) {
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

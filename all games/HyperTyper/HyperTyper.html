@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" rel="stylesheet" href="HyperTyper.css" />
+    <meta charset="utf-8" />
+    <title>HyperTyper!</title>
+</head>
+<body>
+
+    <div id="title" class="PageItems">
+
+        <span id="TitlePara">
+            Welcome to the HyperTyper&trade; game!
+        </span>
+
+    </div>
+
+    <div id="Instructions" class="PageItems">
+
+        <span id="InstructionsPara" class="PageItems">
+            HyperTyper&trade; is a speed game developed by Saif Taher. The game consists of 3 levels. on each level, there will be 10 random
+            words. One word will be displayed individually for a short interval of time. Your goal is to type the word correctly as quickly as possible. If the word is typed
+            incorrectly until the time runs out you will lose. If you type the word correctly the next word will be displayed. For each word you type correctly, you will get the
+            value of its level worth of points. Try to accumulate as many points as you can. Good Luck!
+        </span>
+
+    </div>
+
+    <a href="LevelsIntersection.html"><div id="StartButton" class="PageItems"><span id="StartPara">Start!</span></div></a>
+
+    <!--Start of Particles.js thingy-->
+    <div id="particles-js"></div>
+    <script type="text/javascript" src="particles.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script src="HyperTyper.js"></script>
+    <script>
+        window.onload = document.getElementById('TitlePara').style.opacity = '1';
+        setInterval(function () { document.getElementById('InstructionsPara').style.opacity = '1'; }, 2000);
+        setInterval(function () { document.getElementById('StartPara').style.opacity = '1'; }, 6000); 
+    </script>
+</body>
+</html>

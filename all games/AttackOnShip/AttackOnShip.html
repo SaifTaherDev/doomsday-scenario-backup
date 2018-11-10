@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Attack On Ship!</title>
+    <style>
+        body {
+            margin: 0px auto;
+            overflow: hidden;
+            background: url("Images/space.png");
+            background-repeat: repeat;
+        }
+        #levelDiv {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            position:absolute;
+            height: 10vh;
+            width: 100vw;
+            border-bottom: 1px solid black;
+            cursor:default;
+        }
+        #levelDiv span{
+            display:none;
+            width:16.4%;
+            height:100%;
+            line-height:10vh;
+            text-align:center;
+            font-family:Calibri;
+            font-size:3em;
+            border-radius:0.1em;
+            background:white;
+            color:black;
+            cursor:pointer;
+            transition-duration:0.5s;
+        }
+        #levelDiv span:hover {
+            border-radius: 1em;
+        }
+        canvas {
+            cursor: none;
+        }
+        img{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="levelDiv">
+        <span id="1">Level 1</span>
+        <span id="2">Level 2</span>
+        <span id="3">Level 3</span>
+        <span id="4">Level 4</span>
+        <span id="5">Level 5</span>
+        <span id="6">Level 6</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <script src="Scripts/howler.min.js"></script>
+    <script src="Scripts/AttackOnShip.js"></script>
+    <script>
+        for (let span of levelDivSpans) {
+            span.addEventListener("click", function () {
+                resetGame();
+                levelNum = parseInt(span.id);
+                changeLevel();
+            })
+        }
+    </script>
+</body>
+</html>
