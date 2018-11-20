@@ -1,13 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="Pong.css">
 </head>
+
 <body>
     <canvas id="GameCanvas">No support for you, scrub!</canvas>
     <!--Start of the script-->
-    <script src="howler.js/dist/howler.js"></script>
+    <script src="howler.min.js"></script>
     <script>
         var GameCanvas = document.body.querySelector('#GameCanvas');
         var ctx = GameCanvas.getContext("2d");
@@ -51,7 +53,7 @@
 
         window.onload = function initial() {
 
-            window.addEventListener('resize', function (evt) {
+            window.addEventListener('resize', function(evt) {
                 GameCanvas.width = window.innerWidth;
                 GameCanvas.height = window.innerHeight;
                 playerTwo.x1 = (0.96 * window.innerWidth);
@@ -110,6 +112,7 @@
                 BarCollision(playerTwo);
             }
         }
+
         function BarCollision(player) {
             if (player.y1 < 0) {
                 console.log("AAAAAAAA");
@@ -120,6 +123,7 @@
                 player.y1 = 800;
             }
         }
+
         function DrawBall() {
             ctx.clearRect(Ball.x1 - 1, Ball.y1 - 1, Ball.x2 + 2, Ball.y2 + 2);
             console.log()
@@ -137,12 +141,14 @@
             PlayerOneScore();
             PlayerTwoScore();
         }
+
         function ballCollision() {
             if (Ball.y1 < 6 || Ball.y1 > 850) {
                 console.log("B-B-B-BOUNCE!");
                 speedY = -speedY;
             }
         }
+
         function PlayerOneBounce() {
             if (Ball.y1 > (playerOne.y1 - 40) && Ball.y1 < (playerOne.y1 + 100) && Ball.x1 < (0.02 * WindowWidth) + 40) {
                 console.log("AAAAAAAYYYYYYYY!")
@@ -150,6 +156,7 @@
                 sound.play();
             }
         }
+
         function PlayerTwoBounce() {
             if (Ball.y1 > (playerTwo.y1 - 40) && Ball.y1 < (playerTwo.y1 + 100) && (Ball.x1 + 40) > (0.96 * WindowWidth) && (Ball.x1 + 40) < (0.98 * WindowWidth)) {
                 console.log("AAAAAAAYYYYYYYY!")
@@ -157,11 +164,13 @@
                 sound.play();
             }
         }
+
         function PlayerOneScore() {
             if (Ball.x1 < playerOne.x1 - 30) {
                 location.reload();
             }
         }
+
         function PlayerTwoScore() {
             if (Ball.x1 > playerTwo.x1 + 100) {
                 location.reload();
@@ -169,4 +178,5 @@
         }
     </script>
 </body>
+
 </html>

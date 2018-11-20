@@ -29,17 +29,6 @@ class square {
                 this.sparkleCounter++;
             }
         }
-        if (slowDownFactor > 0 && glowBool) {
-            winGlow();
-            let glowInter = setInterval(function () {
-                if (glowBool) {
-                    winGlow();
-                } else {
-                    clearInterval(glowInter);
-                }
-            }, 2000);
-            setTimeout(function () { clearInterval(glowInter) }, 30000);
-        }
     }
 }
 
@@ -54,11 +43,11 @@ class circle {
         this.deGlowBool = false;
         this.glowCounter = 0;
         this.deGlowCounter = 50;
+        this.active = true;
         this.distanceLeft = squareArr[selectedCol][selectedRow].posY + (CH / 14);
         this.travelBool = false;
         this.travelCounter = 1;
         this.accel = 0;
-        this.active = true;
     }
     draw() {
         ctxOne.save();
@@ -68,17 +57,11 @@ class circle {
         ctxOne.lineWidth = 0.5;
         if (this.travelBool) {
             this.travelCounter = 7;
-        } else {
-            this.travelCounter = 1;
         }
         for (let counter = 0; counter < this.travelCounter; counter++) {
             ctxOne.globalAlpha = counter / 7;
             ctxOne.beginPath();
-            if (this.travelBool) {
-                ctxOne.arc(0, (this.accel) * counter, this.radius, 0, this.arcProgress);
-            } else {
-                ctxOne.arc(0, 0, this.radius, 0, this.arcProgress);
-            }
+            ctxOne.arc(0, (this.accel) * counter, this.radius, 0, this.arcProgress);
             if (this.deGlowCounter < 50) {
                 ctxOne.fill();
             } else {
@@ -96,10 +79,8 @@ class circle {
             this.glow(this.deGlowCounter);
             this.deGlowCounter--;
         }
-        if (this.deGlowCounter < 2) {
-            if (this.active) {
-                this.travel();
-            }
+        if(this.deGlowCounter < 2){
+            this.travel();
         }
     }
     spawn() {
@@ -113,9 +94,7 @@ class circle {
         }
         if (this.deGlowCounter < 0) {
             this.deGlowBool = false;
-            if (this.active) {
-                this.travel();
-            }
+            this.travel();
         }
     }
     transform(){
@@ -148,18 +127,11 @@ class circle {
             this.accel += 0.075;
             this.posY += this.accel;
             this.distanceLeft -= this.accel;
-        } else {
-            this.active = false;
-            this.posX = squareArr[selectedCol][selectedRow].posX + (squareArr[selectedCol][selectedRow].width / 2);
-            this.posY = squareArr[selectedCol][selectedRow].posY + (squareArr[selectedCol][selectedRow].height / 2);
-            this.accel = 0;
+        }else{
             squareArr[selectedCol][selectedRow].clr = this.clr;
             squareArr[selectedCol][selectedRow].initiateSparkle();
-            if(winner != undefined){
-                canvasTwo.removeEventListener("click", callDetect);
-            }else{
-                canvasTwo.addEventListener("click", callDetect);
-            }
+            this.active = false;
+            canvasTwo.addEventListener("click", callDetect);
         }
     }
 }

@@ -39,31 +39,21 @@ function checkAvalibleSquare(colIndex) {
 
 function detectWin() {
     if (detectWinVertical() || detectWinHoriz() || detectWinDiagonal()) {
-        canvasTwo.removeEventListener("click", callDetect);
-        winner = streak;
         slowDownWin();
-        let lastKnownPosY = circleArr[selectedCol][5 - selectedRow].posY;
-        let setWinner = setInterval(function(){
-            if(circleArr[selectedCol][5 - selectedRow].posY == lastKnownPosY){
-                callWinner();
-                clearInterval(setWinner);
-            }
-            lastKnownPosY = circleArr[selectedCol][5 - selectedRow].posY;
-        }, 50);
     }
 }
 
 function detectWinVertical() {
-    for (let counter = 0; counter < 7; counter++) {
-        for (let counterTwo = 5; counterTwo > 2; counterTwo--) {
-            streak = squareArr[counter][counterTwo].circleType;
-            if (squareArr[counter][counterTwo - 1].circleType == streak && streak != null) {
-                if (squareArr[counter][counterTwo - 2].circleType == streak && streak != null) {
-                    if (squareArr[counter][counterTwo - 3].circleType == streak && streak != null) {
-                        winCirclesCoords[0] = [counter, counterTwo];
-                        winCirclesCoords[1] = [counter, counterTwo - 1];
-                        winCirclesCoords[2] = [counter, counterTwo - 2];
-                        winCirclesCoords[3] = [counter, counterTwo - 3];
+    for (let subArr of squareArr) {
+        for (let counter = 5; counter > 2; counter--) {
+            streak = subArr[counter].circleType;
+            if (subArr[counter - 1].circleType == streak && streak != null) {
+                if (subArr[counter - 2].circleType == streak && streak != null) {
+                    if (subArr[counter - 3].circleType == streak && streak != null) {
+                        winCirclesCoords[0] = squareArr.indexOf(subArr);
+                        winCirclesCoords[1] = squareArr.indexOf(subArr);
+                        winCirclesCoords[2] = counter;
+                        winCirclesCoords[3] = counter - 3;
                         return true;
                     }
                 }
@@ -79,10 +69,10 @@ function detectWinHoriz() {
             if (squareArr[counter + 1][counterTwo].circleType == streak && streak != null) {
                 if (squareArr[counter + 2][counterTwo].circleType == streak && streak != null) {
                     if (squareArr[counter + 3][counterTwo].circleType == streak && streak != null) {
-                        winCirclesCoords[0] = [counter, counterTwo];
-                        winCirclesCoords[1] = [counter + 1, counterTwo];
-                        winCirclesCoords[2] = [counter + 2, counterTwo];
-                        winCirclesCoords[3] = [counter + 3, counterTwo];
+                        winCirclesCoords[0] = counter;
+                        winCirclesCoords[1] = counter + 3;
+                        winCirclesCoords[2] = counterTwo;
+                        winCirclesCoords[3] = counterTwo;
                         return true;
                     }
                 }
@@ -99,10 +89,10 @@ function detectWinDiagonal() {
                 if(squareArr[counter + 1][counterTwo + 1].circleType == streak && streak != null){
                     if(squareArr[counter + 2][counterTwo + 2].circleType == streak && streak != null){
                         if(squareArr[counter + 3][counterTwo + 3].circleType == streak && streak != null){
-                            winCirclesCoords[0] = [counter, counterTwo];
-                            winCirclesCoords[1] = [counter + 1, counterTwo + 1];
-                            winCirclesCoords[2] = [counter + 2, counterTwo + 2];
-                            winCirclesCoords[3] = [counter + 3, counterTwo + 3];
+                            winCirclesCoords[0] = counter;
+                            winCirclesCoords[1] = counter + 3;
+                            winCirclesCoords[2] = counterTwo;
+                            winCirclesCoords[3] = counterTwo + 3;
                             return true;
                         }
                     }
@@ -113,10 +103,10 @@ function detectWinDiagonal() {
                 if(squareArr[counter - 1][counterTwo + 1].circleType == streak && streak != null){
                     if(squareArr[counter - 2][counterTwo + 2].circleType == streak && streak != null){
                         if(squareArr[counter - 3][counterTwo + 3].circleType == streak && streak != null){
-                            winCirclesCoords[0] = [counter, counterTwo];
-                            winCirclesCoords[1] = [counter - 1, counterTwo + 1];
-                            winCirclesCoords[2] = [counter - 2, counterTwo + 2];
-                            winCirclesCoords[3] = [counter - 3, counterTwo + 3];
+                            winCirclesCoords[0] = counter;
+                            winCirclesCoords[1] = counter - 3;
+                            winCirclesCoords[2] = counterTwo;
+                            winCirclesCoords[3] = counterTwo + 3;
                             return true;
                         }
                     }
@@ -127,10 +117,10 @@ function detectWinDiagonal() {
                 if(squareArr[counter + 1][counterTwo - 1].circleType == streak && streak != null){
                     if(squareArr[counter + 2][counterTwo - 2].circleType == streak && streak != null){
                         if(squareArr[counter + 3][counterTwo - 3].circleType == streak && streak != null){
-                            winCirclesCoords[0] = [counter, counterTwo];
-                            winCirclesCoords[1] = [counter + 1, counterTwo - 1];
-                            winCirclesCoords[2] = [counter + 2, counterTwo - 2];
-                            winCirclesCoords[3] = [counter + 3, counterTwo - 3];
+                            winCirclesCoords[0] = counter;
+                            winCirclesCoords[1] = counter + 3;
+                            winCirclesCoords[2] = counterTwo;
+                            winCirclesCoords[3] = counterTwo - 3;
                             return true;
                         }
                     }
@@ -141,10 +131,10 @@ function detectWinDiagonal() {
                 if(squareArr[counter - 1][counterTwo - 1].circleType == streak && streak != null){
                     if(squareArr[counter - 2][counterTwo - 2].circleType == streak && streak != null){
                         if(squareArr[counter - 3][counterTwo - 3].circleType == streak && streak != null){
-                            winCirclesCoords[0] = [counter, counterTwo];
-                            winCirclesCoords[1] = [counter - 1, counterTwo - 1];
-                            winCirclesCoords[2] = [counter - 2, counterTwo - 2];
-                            winCirclesCoords[3] = [counter - 3, counterTwo - 3];
+                            winCirclesCoords[0] = counter;
+                            winCirclesCoords[1] = counter - 3;
+                            winCirclesCoords[2] = counterTwo;
+                            winCirclesCoords[3] = counterTwo - 3;
                             return true;
                         }
                     }

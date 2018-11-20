@@ -9,4 +9,3 @@
 createBoard();
 mainLoop();
 canvasTwo.addEventListener("click", callDetect);
-setTimeout(promptName, 500);

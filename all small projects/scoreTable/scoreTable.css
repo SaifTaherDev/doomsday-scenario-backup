@@ -1,0 +1,40 @@
+ body {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 95vh;
+ }
+
+ table {
+     text-align: center;
+     font-family: calibri;
+     font-size: 2.5em;
+     border: 1px solid black;
+     border-collapse: collapse;
+ }
+
+ #addCol,
+ #subCol {
+     font-size: 2.5em;
+     margin-left: 0.5em;
+ }
+
+ table th,
+ table td {
+     padding: 1em;
+     border: 1px solid black;
+     text-align: center;
+     max-width: 20vw;
+ }
+
+ table input {
+     font-size: 0.75em;
+     width: 75%;
+     min-width: 3.25em;
+     text-align: center;
+ }
+
+ table button {
+     font-size: 1em;
+     margin: 0.25em;
+ }
