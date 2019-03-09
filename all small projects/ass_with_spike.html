@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>practice</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        let canvas = document.body.querySelector("canvas");
+        let ctx = canvas.getContext("2d");
+        canvas.width = 0.75 * screen.width;
+        canvas.height = 0.75 * screen.height;
+        let CW = canvas.width;
+        let CH = canvas.height;
+        canvas.style.top = (screen.height / 2) - (canvas.height / 2) + "px";
+        canvas.style.left = (screen.width / 2) - (canvas.width / 2) + "px";
+
+        let assArr = [];
+
+        class ass {
+            constructor(posX, posY, sAngle, eAngle) {
+                this.posX = posX;
+                this.posY = posY;
+                this.radius = 100;
+                this.spikeArr = [];
+                this.sAngle = sAngle;
+                this.eAngle = eAngle;
+            }
+            drawAss() {
+                ctx.save();
+                ctx.translate(this.posX, this.posY);
+                ctx.beginPath();
+                ctx.arc(0, 0, this.radius, 0, Math.PI, true);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+                this.drawSpikes();
+            }
+            drawSpikes() {
+                this.spikeArr = [];
+                let limit = 20;
+                for (let counter = this.sAngle; counter < this.eAngle; counter++) {
+                    let x1 = this.posX + Math.cos(-Math.PI / 20 * counter) * this.radius;
+                    let y1 = this.posY + Math.sin(-Math.PI / 20 * counter) * this.radius;
+                    let x2 = (this.posX + Math.cos(-Math.PI / 20 * counter) * (this.radius + 30)) - x1;
+                    let y2 = (this.posY + Math.sin(-Math.PI / 20 * counter) * (this.radius + 30)) - y1;
+                    this.spikeArr.push([x1, y1, x2, y2]);
+                }
+                this.spikeArr.forEach(function (spike) {
+                    ctx.save();
+                    ctx.translate(spike[0], spike[1]);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(spike[2], spike[3]);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                })
+            }
+        }
+
+        function drawAsses() {
+            assArr.forEach(function (ass) {
+                ass.drawAss();
+            })
+        }
+
+        function mainloop() {
+            ctx.clearRect(0, 0, CW, CH);
+            drawAsses();
+            requestAnimationFrame(mainloop);
+        }
+
+        assArr.push(new ass((CW / 2) + 100, CH / 2, 1, 16));
+        assArr.push(new ass((CW / 2) - 100, CH / 2, 5, 20));
+        mainloop();
+    </script>
+</body>
+
+</html>

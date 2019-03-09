@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "retro";
+    src: url("retro.ttf") format("truetype");
+}
+body{
+    margin:0;
+    overflow:hidden;
+    cursor:none;
+}
+canvas{
+    background:black;
+}
